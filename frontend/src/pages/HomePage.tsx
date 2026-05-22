@@ -18,6 +18,11 @@ import { useAppSelector } from '../store/hooks';
 import { formatPrice } from '../utils/formatPrice';
 import type { ApiEnvelope } from '../types/api';
 import type { CatalogProduct, CategoryWithCount, HomePageData, Major, PromoBanner } from '../types/catalog';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 const PRIMARY = '#004AC6';
 const TEXT = '#191B23';
@@ -291,13 +296,15 @@ function ProductSection({
     title,
     products,
     viewAllTo,
-    background
+    background,
+    carousel = false
 }: {
     id: string;
     title: string;
     products: CatalogProduct[];
     viewAllTo: string;
     background?: string;
+    carousel?: boolean;
 }) {
     if (products.length === 0) return null;
 
@@ -320,11 +327,34 @@ function ProductSection({
                         View all
                     </Link>
                 </div>
-                <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-                    {products.map((p) => (
-                        <ProductCard key={p.id} product={p} />
-                    ))}
-                </div>
+                {carousel ? (
+                    <div className="mt-12 product-carousel-container">
+                        <Swiper
+                            modules={[Navigation, Pagination]}
+                            spaceBetween={24}
+                            slidesPerView={1}
+                            navigation
+                            pagination={{ clickable: true }}
+                            breakpoints={{
+                                640: { slidesPerView: 2 },
+                                1024: { slidesPerView: 4 }
+                            }}
+                            className="py-4"
+                        >
+                            {products.map((p) => (
+                                <SwiperSlide key={p.id} className="pb-12">
+                                    <ProductCard product={p} />
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
+                    </div>
+                ) : (
+                    <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+                        {products.map((p) => (
+                            <ProductCard key={p.id} product={p} />
+                        ))}
+                    </div>
+                )}
             </div>
         </section>
     );
@@ -627,6 +657,7 @@ export default function HomePage() {
     const featured = data?.featured?.length ? data.featured : (data?.newest?.slice(0, 3) ?? []);
     const newest = data?.newest ?? [];
     const bestSellers = data?.bestSellers ?? [];
+    const mostViewed = data?.mostViewed ?? [];
     const categories = data?.categories ?? [];
     const banners = data?.banners ?? [];
     const majors = data?.majors ?? [];
@@ -667,6 +698,14 @@ export default function HomePage() {
                             products={bestSellers}
                             viewAllTo="/categories?sort=popular"
                             background={SURFACE}
+                            carousel={true}
+                        />
+                        <ProductSection
+                            id="mostviewed"
+                            title="Most Viewed"
+                            products={mostViewed}
+                            viewAllTo="/categories?sort=most_viewed"
+                            carousel={true}
                         />
                         <MajorFilterSection majors={majors} />
                     </>

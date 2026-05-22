@@ -72,3 +72,42 @@
   background: var(--color-primary);
 }
 
+/* Premium Swiper Styles for Homepage Carousels */
+.product-carousel-container {
+  position: relative;
+}
+
+.product-carousel-container .swiper-button-next,
+.product-carousel-container .swiper-button-prev {
+  color: var(--color-primary) !important;
+  background-color: var(--color-surface-container-lowest) !important;
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: 50% !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08) !important;
+  border: 1px solid var(--color-outline-variant) !important;
+  transition: all 0.2s ease-in-out !important;
+}
+
+.product-carousel-container .swiper-button-next:hover,
+.product-carousel-container .swiper-button-prev:hover {
+  background-color: var(--color-primary) !important;
+  color: var(--color-on-primary) !important;
+  border-color: var(--color-primary) !important;
+  transform: scale(1.05);
+}
+
+.product-carousel-container .swiper-button-next::after,
+.product-carousel-container .swiper-button-prev::after {
+  font-size: 16px !important;
+  font-weight: bold !important;
+}
+
+.product-carousel-container .swiper-pagination-bullet-active {
+  background: var(--color-primary) !important;
+  width: 20px !important;
+  border-radius: 4px !important;
+  transition: all 0.3s ease !important;
+}
+
+
