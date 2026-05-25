@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { addToCart as addCartItemThunk } from '../store/cartSlice';
 import axiosInstance from '../services/axiosConfig';
 import { formatPrice } from '../utils/formatPrice';
-import { addToCart } from '../utils/cartStorage';
 import ProductImageGallery from '../components/catalog/ProductImageGallery';
 import QuantitySelector from '../components/catalog/QuantitySelector';
 import SimilarProducts from '../components/catalog/SimilarProducts';
@@ -150,6 +151,9 @@ function ProductDetailFooter() {
 
 export default function ProductDetailPage() {
     const { slug } = useParams();
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const user = useAppSelector((state) => state.auth.user);
     const [product, setProduct] = useState<ProductDetail | null>(null);
     const [similarProducts, setSimilarProducts] = useState<CatalogProduct[]>([]);
     const [loading, setLoading] = useState(true);
@@ -263,16 +267,26 @@ export default function ProductDetailPage() {
 
     const handleAddToCart = () => {
         if (!inStock) return;
-        addToCart({
-            productId: product.id,
-            slug: product.slug,
-            name: product.name,
-            price: product.price,
-            imageUrl: product.imageUrl ?? images[0]?.url ?? null,
-            quantity
-        });
-        setCartMessage(`Added ${quantity} × ${product.name} to cart`);
-        window.setTimeout(() => setCartMessage(null), 3500);
+        if (!user) {
+            navigate(`/login?redirect=${encodeURIComponent(window.location.pathname)}`);
+            return;
+        }
+        dispatch(
+            addCartItemThunk({
+                productId: product.id,
+                variantId: null,
+                quantity
+            })
+        )
+            .unwrap()
+            .then(() => {
+                setCartMessage(`Đã thêm ${quantity} × ${product.name} vào giỏ hàng`);
+                window.setTimeout(() => setCartMessage(null), 3500);
+            })
+            .catch((err: any) => {
+                setCartMessage(`Lỗi: ${err || 'Không thể thêm sản phẩm'}`);
+                window.setTimeout(() => setCartMessage(null), 3500);
+            });
     };
 
     return (
