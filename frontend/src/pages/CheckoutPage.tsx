@@ -35,6 +35,24 @@ export default function CheckoutPage() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitError, setSubmitError] = useState<string | null>(null);
 
+    // Coupon & Points States
+    const [promoCodeInput, setPromoCodeInput] = useState('');
+    const [appliedPromo, setAppliedPromo] = useState<any | null>(null);
+    const [promoError, setPromoError] = useState<string | null>(null);
+    const [usePoints, setUsePoints] = useState(false);
+    const [pointsAvailable, setPointsAvailable] = useState(0);
+
+    useEffect(() => {
+        if (user) {
+            axiosInstance.get('/users/me')
+                .then((res: any) => {
+                    setPointsAvailable(res.data?.user?.points || 0);
+                })
+                .catch(e => console.error(e));
+        }
+    }, [user]);
+
+
     useEffect(() => {
         if (!user) {
             navigate('/login?redirect=/checkout');
@@ -70,12 +88,41 @@ export default function CheckoutPage() {
 
     const subtotal = items.reduce((sum, item) => sum + Number(item.unitPrice) * item.quantity, 0);
     const shippingFee = subtotal > 500000 ? 0 : 30000;
-    const total = subtotal + shippingFee;
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
     };
+
+    const handleApplyPromo = async () => {
+        if (!promoCodeInput.trim()) return;
+        setPromoError(null);
+        try {
+            const res = await axiosInstance.post<any>('/orders/validate-coupon', {
+                promoCode: promoCodeInput.trim().toUpperCase(),
+                subtotal
+            });
+            // res is parsed body since we use response interceptor returning response.data
+            const couponInfo = res.data || (res as any).data || res;
+            setAppliedPromo(couponInfo);
+            setPromoError(null);
+        } catch (err: any) {
+            const msg = typeof err === 'string' ? err : err.message || 'Mã giảm giá không hợp lệ';
+            setPromoError(msg);
+            setAppliedPromo(null);
+        }
+    };
+
+    const promoDiscount = appliedPromo ? Number(appliedPromo.discountAmount) : 0;
+    const remainingAfterPromo = Math.max(0, subtotal - promoDiscount);
+    const maxPointsDiscount = remainingAfterPromo;
+    const potentialPointsDiscount = pointsAvailable * 100;
+    const pointsDiscount = usePoints ? Math.min(maxPointsDiscount, potentialPointsDiscount) : 0;
+    const pointsUsed = Math.floor(pointsDiscount / 100);
+
+    const totalDiscount = promoDiscount + pointsDiscount;
+    const total = Math.max(0, subtotal - totalDiscount) + shippingFee;
+
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -94,7 +141,9 @@ export default function CheckoutPage() {
             const response = await axiosInstance.post<{ data: { id: number } }>('/orders', {
                 addressData: formData,
                 note,
-                paymentMethod
+                paymentMethod,
+                promoCode: appliedPromo?.code || undefined,
+                usePoints
             });
 
             // Clean cart in Redux state
@@ -337,12 +386,91 @@ export default function CheckoutPage() {
                             })}
                         </div>
 
+                        {/* Coupon/Voucher section */}
+                        <div className="border-t border-gray-100 pt-4 space-y-3">
+                            <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider">Mã giảm giá / Voucher</label>
+                            <div className="flex gap-2">
+                                <input
+                                    type="text"
+                                    value={promoCodeInput}
+                                    onChange={(e) => setPromoCodeInput(e.target.value)}
+                                    placeholder="Ví dụ: UTESALE20"
+                                    className="flex-grow rounded-xl border border-gray-200 px-3 py-2 text-sm uppercase focus:border-primary focus:outline-none transition"
+                                />
+                                <button
+                                    type="button"
+                                    onClick={handleApplyPromo}
+                                    className="rounded-xl bg-gray-100 px-4 py-2 text-xs font-bold text-gray-700 hover:bg-gray-200 transition active:scale-95 shrink-0"
+                                >
+                                    Áp dụng
+                                </button>
+                            </div>
+                            {promoError && (
+                                <p className="text-xs font-medium text-red-500">{promoError}</p>
+                            )}
+                            {appliedPromo && (
+                                <div className="rounded-xl bg-green-50 border border-green-100 p-2.5 flex items-center justify-between">
+                                    <div className="flex items-center gap-1 text-green-700 text-xs font-semibold">
+                                        <span className="material-symbols-outlined text-sm">check_circle</span>
+                                        Đã áp dụng: <span className="font-extrabold">{appliedPromo.code}</span>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            setAppliedPromo(null);
+                                            setPromoCodeInput('');
+                                        }}
+                                        className="text-xs font-bold text-red-500 hover:underline"
+                                    >
+                                        Gỡ bỏ
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Loyalty Points Wallet section */}
+                        {pointsAvailable > 0 && (
+                            <div className="border-t border-gray-100 pt-4">
+                                <label className="flex items-start gap-3 cursor-pointer select-none">
+                                    <input
+                                        type="checkbox"
+                                        checked={usePoints}
+                                        onChange={(e) => setUsePoints(e.target.checked)}
+                                        className="h-4.5 w-4.5 rounded border-gray-300 text-blue-600 focus:ring-blue-500 mt-0.5"
+                                    />
+                                    <div className="flex-1 min-w-0">
+                                        <p className="text-xs font-bold text-gray-900 flex items-center gap-1.5">
+                                            Dùng điểm tích lũy thanh toán
+                                            <span className="rounded bg-yellow-100 px-1.5 py-0.5 text-[9px] font-extrabold text-yellow-800 uppercase">
+                                                {pointsAvailable} điểm
+                                            </span>
+                                        </p>
+                                        <p className="text-[11px] text-gray-500 mt-0.5">
+                                            Quy đổi: 100 điểm = 10k VND. Tiết kiệm lên tới {(pointsAvailable * 100).toLocaleString('vi-VN')}đ.
+                                        </p>
+                                    </div>
+                                </label>
+                            </div>
+                        )}
+
                         {/* Cost calculations */}
                         <div className="space-y-3 text-sm text-gray-600 border-t border-b border-gray-100 py-4">
                             <div className="flex justify-between">
                                 <span>Tạm tính</span>
                                 <span className="font-semibold text-gray-900">{subtotal.toLocaleString('vi-VN')}đ</span>
                             </div>
+                            {promoDiscount > 0 && (
+                                <div className="flex justify-between text-green-600 font-medium">
+                                    <span>Giảm giá Voucher</span>
+                                    <span>-{promoDiscount.toLocaleString('vi-VN')}đ</span>
+                                </div>
+                            )}
+                            {pointsDiscount > 0 && (
+                                <div className="flex justify-between text-yellow-600 font-medium">
+                                    <span>Dùng điểm tích lũy ({pointsUsed} điểm)</span>
+                                    <span>-{pointsDiscount.toLocaleString('vi-VN')}đ</span>
+                                </div>
+                            )}
                             <div className="flex justify-between">
                                 <span>Phí vận chuyển</span>
                                 <span className="font-semibold text-gray-900">
@@ -358,6 +486,7 @@ export default function CheckoutPage() {
                                 {total.toLocaleString('vi-VN')}đ
                             </span>
                         </div>
+
 
                         {/* Submit button */}
                         <button

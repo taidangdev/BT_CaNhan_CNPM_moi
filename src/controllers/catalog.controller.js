@@ -59,4 +59,16 @@ const getHome = async (req, res, next) => {
     }
 };
 
-module.exports = { listMajors, listCategories, listProducts, getProduct, getHome };
+const createProductReview = async (req, res, next) => {
+    try {
+        const userId = req.user.id;
+        const productId = Number(req.params.id);
+        const { rating, comment } = req.body;
+        const result = await catalogService.createProductReview(userId, productId, { rating, comment });
+        return successResponse(res, 201, result.message, { review: result.review });
+    } catch (error) {
+        next(error);
+    }
+};
+
+module.exports = { listMajors, listCategories, listProducts, getProduct, getHome, createProductReview };

@@ -19,7 +19,7 @@ const autoConfirmIfOld = async (order) => {
 /**
  * Create a new order (Checkout)
  */
-const createOrder = async (userId, { shippingAddressId, addressData, note, paymentMethod = 'cod' }) => {
+const createOrder = async (userId, { shippingAddressId, addressData, note, paymentMethod = 'cod', promoCode, usePoints }) => {
     // 1. Fetch or create address
     let address;
     if (shippingAddressId) {
@@ -109,8 +109,70 @@ const createOrder = async (userId, { shippingAddressId, addressData, note, payme
         });
     }
 
+    let discountAmount = 0;
+    let pointsUsed = 0;
+    let promo = null;
+
+    if (promoCode) {
+        const { Promotion } = require('../models');
+        promo = await Promotion.findOne({
+            where: {
+                code: promoCode,
+                isActive: true
+            }
+        });
+        if (!promo) {
+            throw new Error('Mã giảm giá không tồn tại hoặc đã hết hạn');
+        }
+        
+        // Validate minimum order amount
+        if (promo.minOrderAmount && subtotal < promo.minOrderAmount) {
+            throw new Error(`Đơn hàng chưa đạt giá trị tối thiểu để áp dụng mã (Tối thiểu: ${promo.minOrderAmount}đ)`);
+        }
+
+        // Validate usage limit
+        if (promo.usageLimit && promo.usedCount >= promo.usageLimit) {
+            throw new Error('Mã giảm giá đã hết lượt sử dụng');
+        }
+
+        // Calculate discount
+        if (promo.type === 'percentage') {
+            if (promo.categoryId) {
+                let eligibleSubtotal = 0;
+                for (const item of cart.items) {
+                    if (item.product.categoryId === promo.categoryId) {
+                        eligibleSubtotal += item.unitPrice * item.quantity;
+                    }
+                }
+                discountAmount += Math.round((eligibleSubtotal * Number(promo.value)) / 100);
+            } else {
+                discountAmount += Math.round((subtotal * Number(promo.value)) / 100);
+            }
+        } else if (promo.type === 'fixed_amount') {
+            discountAmount += Number(promo.value);
+        }
+    }
+
+    const User = require('../models/user.model');
+    const user = await User.findByPk(userId);
+    if (!user) {
+        throw new Error('Không tìm thấy tài khoản người dùng');
+    }
+
+    if (usePoints) {
+        const pointsAvailable = user.points || 0;
+        // Quy đổi: 100 điểm = 10k VND -> 1 điểm = 100 VND
+        const remainingAfterPromo = Math.max(0, subtotal - discountAmount);
+        const maxPointsDiscount = remainingAfterPromo;
+        const potentialPointsDiscount = pointsAvailable * 100;
+        
+        const actualPointsDiscount = Math.min(maxPointsDiscount, potentialPointsDiscount);
+        pointsUsed = Math.floor(actualPointsDiscount / 100);
+        discountAmount += actualPointsDiscount;
+    }
+
     const shippingFee = subtotal > 500000 ? 0 : 30000; // Miễn phí ship với đơn trên 500k
-    const total = subtotal + shippingFee;
+    const total = Math.max(0, subtotal - discountAmount) + shippingFee;
 
     // Start Transaction
     const t = await sequelize.transaction();
@@ -139,6 +201,7 @@ const createOrder = async (userId, { shippingAddressId, addressData, note, payme
             shippingSnapshot,
             status: 'pending',
             subtotal,
+            discountAmount,
             shippingFee,
             total,
             note,
@@ -183,6 +246,21 @@ const createOrder = async (userId, { shippingAddressId, addressData, note, payme
             transaction: t
         });
 
+        // 8. Deduct Points if used
+        if (pointsUsed > 0) {
+            const dbUser = await User.findByPk(userId, { transaction: t });
+            dbUser.points -= pointsUsed;
+            await dbUser.save({ transaction: t });
+        }
+
+        // 9. Increment Coupon usedCount if applied
+        if (promo) {
+            const { Promotion } = require('../models');
+            const dbPromo = await Promotion.findByPk(promo.id, { transaction: t });
+            dbPromo.usedCount += 1;
+            await dbPromo.save({ transaction: t });
+        }
+
         await t.commit();
 
         // Return order with details
@@ -192,6 +270,7 @@ const createOrder = async (userId, { shippingAddressId, addressData, note, payme
         throw error;
     }
 };
+
 
 /**
  * Get order details for a user
@@ -371,9 +450,52 @@ const cancelOrRequestCancel = async (userId, orderId, cancellationReason = '') =
     }
 };
 
+const validateCoupon = async (promoCode, subtotal) => {
+    const { Promotion } = require('../models');
+    const promo = await Promotion.findOne({
+        where: {
+            code: promoCode,
+            isActive: true
+        }
+    });
+    if (!promo) {
+        throw new Error('Mã giảm giá không tồn tại hoặc đã hết hạn');
+    }
+    const now = new Date();
+    if (promo.startsAt && promo.startsAt > now) {
+        throw new Error('Mã giảm giá chưa đến thời gian áp dụng');
+    }
+    if (promo.endsAt && promo.endsAt < now) {
+        throw new Error('Mã giảm giá đã hết hạn');
+    }
+    if (promo.minOrderAmount && subtotal < promo.minOrderAmount) {
+        throw new Error(`Đơn hàng chưa đạt giá trị tối thiểu để áp dụng mã (Tối thiểu: ${promo.minOrderAmount}đ)`);
+    }
+    if (promo.usageLimit && promo.usedCount >= promo.usageLimit) {
+        throw new Error('Mã giảm giá đã hết lượt sử dụng');
+    }
+
+    let discountAmount = 0;
+    if (promo.type === 'percentage') {
+        discountAmount = Math.round((subtotal * Number(promo.value)) / 100);
+    } else if (promo.type === 'fixed_amount') {
+        discountAmount = Number(promo.value);
+    }
+
+    return {
+        code: promo.code,
+        name: promo.name,
+        type: promo.type,
+        value: promo.value,
+        discountAmount
+    };
+};
+
 module.exports = {
     createOrder,
     getOrderDetails,
     listOrders,
-    cancelOrRequestCancel
+    cancelOrRequestCancel,
+    validateCoupon
 };
+

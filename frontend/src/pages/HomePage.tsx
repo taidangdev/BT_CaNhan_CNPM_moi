@@ -247,47 +247,73 @@ function CategorySection({ categories }: { categories: CategoryWithCount[] }) {
     );
 }
 
-function ProductCard({ product }: { product: CatalogProduct }) {
+function ProductCard({ 
+    product, 
+    isWishlisted, 
+    onToggleWishlist 
+}: { 
+    product: CatalogProduct; 
+    isWishlisted: boolean; 
+    onToggleWishlist: () => void; 
+}) {
     return (
-        <Link to={`/products/${product.slug}`} className="group block">
-            <article className="flex h-full flex-col overflow-hidden rounded-3xl bg-white shadow-[0_10px_30px_rgba(0,0,0,0.04)] transition group-hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)]">
-                <div className="h-80 overflow-hidden" style={{ backgroundColor: '#EDE9FA' }}>
-                    <img
-                        src={product.imageUrl || '/PremiumLaptop.png'}
-                        alt={product.imageAlt || product.name}
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                </div>
-                <div className="flex flex-1 flex-col gap-3 p-6">
-                    <span
-                        className="font-inter text-xs font-medium uppercase tracking-wide"
-                        style={{ color: PRIMARY }}
-                    >
-                        {categoryLabel(product)}
-                    </span>
-                    <h3 className="font-inter text-xl font-semibold leading-8" style={{ color: TEXT }}>
-                        {product.name}
-                    </h3>
-                    <div className="mt-auto flex items-center justify-between pt-2">
-                        <p className="font-inter text-2xl font-semibold" style={{ color: TEXT }}>
-                            {formatPrice(product.price)}
-                        </p>
-                        <span
-                            className="flex h-12 w-12 items-center justify-center rounded-full text-white transition group-hover:opacity-90"
-                            style={{ backgroundColor: PRIMARY }}
-                            aria-hidden
-                        >
-                            <FiShoppingCart className="h-5 w-5" strokeWidth={2} />
-                        </span>
+        <div className="group relative block h-full">
+            <Link to={`/products/${product.slug}`} className="block h-full">
+                <article className="flex h-full flex-col overflow-hidden rounded-3xl bg-white shadow-[0_10px_30px_rgba(0,0,0,0.04)] transition group-hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)]">
+                    <div className="h-80 overflow-hidden" style={{ backgroundColor: '#EDE9FA' }}>
+                        <img
+                            src={product.imageUrl || '/PremiumLaptop.png'}
+                            alt={product.imageAlt || product.name}
+                            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
                     </div>
-                    {(product.soldCount ?? 0) > 0 && (
-                        <p className="font-inter text-xs" style={{ color: TEXT_BODY }}>
-                            {product.soldCount} sold
-                        </p>
-                    )}
-                </div>
-            </article>
-        </Link>
+                    <div className="flex flex-1 flex-col gap-3 p-6">
+                        <span
+                            className="font-inter text-xs font-medium uppercase tracking-wide"
+                            style={{ color: PRIMARY }}
+                        >
+                            {categoryLabel(product)}
+                        </span>
+                        <h3 className="font-inter text-xl font-semibold leading-8" style={{ color: TEXT }}>
+                            {product.name}
+                        </h3>
+                        <div className="mt-auto flex items-center justify-between pt-2">
+                            <p className="font-inter text-2xl font-semibold" style={{ color: TEXT }}>
+                                {formatPrice(product.price)}
+                            </p>
+                            <span
+                                className="flex h-12 w-12 items-center justify-center rounded-full text-white transition group-hover:opacity-90"
+                                style={{ backgroundColor: PRIMARY }}
+                                aria-hidden
+                            >
+                                <FiShoppingCart className="h-5 w-5" strokeWidth={2} />
+                            </span>
+                        </div>
+                        {(product.soldCount ?? 0) > 0 && (
+                            <p className="font-inter text-xs" style={{ color: TEXT_BODY }}>
+                                {product.soldCount} sold
+                            </p>
+                        )}
+                    </div>
+                </article>
+            </Link>
+
+            {/* Wishlist toggle button on top right of the card */}
+            <button
+                type="button"
+                onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    onToggleWishlist();
+                }}
+                className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/80 shadow-md backdrop-blur-md transition hover:bg-white active:scale-90"
+                aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
+            >
+                <span className={`material-symbols-outlined text-xl ${isWishlisted ? 'material-symbols-filled text-red-600' : 'text-on-surface-variant'}`}>
+                    favorite
+                </span>
+            </button>
+        </div>
     );
 }
 
@@ -297,7 +323,9 @@ function ProductSection({
     products,
     viewAllTo,
     background,
-    carousel = false
+    carousel = false,
+    wishlistIds,
+    onToggleWishlist
 }: {
     id: string;
     title: string;
@@ -305,6 +333,8 @@ function ProductSection({
     viewAllTo: string;
     background?: string;
     carousel?: boolean;
+    wishlistIds: Set<number>;
+    onToggleWishlist: (id: number) => void;
 }) {
     if (products.length === 0) return null;
 
@@ -343,7 +373,11 @@ function ProductSection({
                         >
                             {products.map((p) => (
                                 <SwiperSlide key={p.id} className="pb-12">
-                                    <ProductCard product={p} />
+                                    <ProductCard 
+                                        product={p} 
+                                        isWishlisted={wishlistIds.has(p.id)}
+                                        onToggleWishlist={() => onToggleWishlist(p.id)}
+                                    />
                                 </SwiperSlide>
                             ))}
                         </Swiper>
@@ -351,7 +385,12 @@ function ProductSection({
                 ) : (
                     <div className="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
                         {products.map((p) => (
-                            <ProductCard key={p.id} product={p} />
+                            <ProductCard 
+                                key={p.id} 
+                                product={p} 
+                                isWishlisted={wishlistIds.has(p.id)}
+                                onToggleWishlist={() => onToggleWishlist(p.id)}
+                            />
                         ))}
                     </div>
                 )}
@@ -621,9 +660,48 @@ function ShopFooter() {
 
 export default function HomePage() {
     const user = useAppSelector((state) => state.auth.user);
+    const navigate = useNavigate();
+    const [wishlistIds, setWishlistIds] = useState<Set<number>>(new Set());
+
+    useEffect(() => {
+        if (user) {
+            axiosInstance.get('/users/wishlist')
+                .then((res: any) => {
+                    const ids = new Set<number>((res.data?.products ?? []).map((p: any) => p.id));
+                    setWishlistIds(ids);
+                })
+                .catch(e => console.error(e));
+        } else {
+            setWishlistIds(new Set());
+        }
+    }, [user]);
+
+    const handleToggleWishlist = async (productId: number) => {
+        if (!user) {
+            navigate('/login?redirect=/');
+            return;
+        }
+        try {
+            const res = await axiosInstance.post<any>(`/users/wishlist/${productId}`);
+            const inWishlist = res.data?.inWishlist || (res as any).inWishlist;
+            setWishlistIds(prev => {
+                const next = new Set(prev);
+                if (inWishlist) {
+                    next.add(productId);
+                } else {
+                    next.delete(productId);
+                }
+                return next;
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
     const [data, setData] = useState<HomePageData | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+
 
     useEffect(() => {
         let cancelled = false;
@@ -685,12 +763,16 @@ export default function HomePage() {
                             products={featured}
                             viewAllTo="/categories?sort=popular"
                             background={SURFACE}
+                            wishlistIds={wishlistIds}
+                            onToggleWishlist={handleToggleWishlist}
                         />
                         <ProductSection
                             id="newest"
                             title="Newest Arrivals"
                             products={newest}
                             viewAllTo="/categories?sort=newest"
+                            wishlistIds={wishlistIds}
+                            onToggleWishlist={handleToggleWishlist}
                         />
                         <ProductSection
                             id="bestsellers"
@@ -699,6 +781,8 @@ export default function HomePage() {
                             viewAllTo="/categories?sort=popular"
                             background={SURFACE}
                             carousel={true}
+                            wishlistIds={wishlistIds}
+                            onToggleWishlist={handleToggleWishlist}
                         />
                         <ProductSection
                             id="mostviewed"
@@ -706,6 +790,8 @@ export default function HomePage() {
                             products={mostViewed}
                             viewAllTo="/categories?sort=most_viewed"
                             carousel={true}
+                            wishlistIds={wishlistIds}
+                            onToggleWishlist={handleToggleWishlist}
                         />
                         <MajorFilterSection majors={majors} />
                     </>

@@ -4,18 +4,31 @@ const { successResponse } = require('../utils/responseHandler');
 const placeOrder = async (req, res, next) => {
     try {
         const userId = req.user.id;
-        const { shippingAddressId, addressData, note, paymentMethod } = req.body;
+        const { shippingAddressId, addressData, note, paymentMethod, promoCode, usePoints } = req.body;
         const order = await orderService.createOrder(userId, {
             shippingAddressId: shippingAddressId ? Number(shippingAddressId) : undefined,
             addressData,
             note,
-            paymentMethod
+            paymentMethod,
+            promoCode,
+            usePoints: Boolean(usePoints)
         });
         return successResponse(res, 201, 'Đặt hàng thành công', order);
     } catch (error) {
         next(error);
     }
 };
+
+const validateCoupon = async (req, res, next) => {
+    try {
+        const { promoCode, subtotal } = req.body;
+        const result = await orderService.validateCoupon(promoCode, Number(subtotal));
+        return successResponse(res, 200, 'Áp dụng mã giảm giá thành công', result);
+    } catch (error) {
+        next(error);
+    }
+};
+
 
 const getOrder = async (req, res, next) => {
     try {
@@ -53,6 +66,7 @@ const cancelMyOrder = async (req, res, next) => {
 
 module.exports = {
     placeOrder,
+    validateCoupon,
     getOrder,
     getMyOrders,
     cancelMyOrder

@@ -162,6 +162,20 @@ export default function ProductDetailPage() {
     const [cartMessage, setCartMessage] = useState<string | null>(null);
     const [activeTab, setActiveTab] = useState('specs');
 
+    // Review States
+    const [reviewOpen, setReviewOpen] = useState(false);
+    const [ratingInput, setRatingInput] = useState(5);
+    const [commentInput, setCommentInput] = useState('');
+    const [reviewLoading, setReviewLoading] = useState(false);
+    const [reviewError, setReviewError] = useState<string | null>(null);
+    const [reviewSuccess, setReviewSuccess] = useState<string | null>(null);
+
+    // Wishlist State
+    const [inWishlist, setInWishlist] = useState(false);
+
+    // Recently Viewed State
+    const [recentlyViewed, setRecentlyViewed] = useState<any[]>([]);
+
     useEffect(() => {
         let cancelled = false;
         async function load() {
@@ -177,6 +191,36 @@ export default function ProductDetailPage() {
                     setSimilarProducts(data?.similarProducts ?? []);
                     setQuantity(1);
                     setCartMessage(null);
+
+                    // 1. Check Wishlist
+                    if (user && data?.product) {
+                        axiosInstance.get('/users/wishlist')
+                            .then((wishRes) => {
+                                const found = wishRes.data?.products?.some((p: any) => p.id === data.product.id);
+                                if (!cancelled) setInWishlist(!!found);
+                            })
+                            .catch(e => console.error(e));
+                    }
+
+                    // 2. Save to Recently Viewed
+                    if (data?.product) {
+                        try {
+                            const recentStr = localStorage.getItem('recently_viewed');
+                            let recent: any[] = recentStr ? JSON.parse(recentStr) : [];
+                            recent = recent.filter((p: any) => p.slug !== data.product.slug);
+                            recent.unshift({
+                                id: data.product.id,
+                                name: data.product.name,
+                                slug: data.product.slug,
+                                price: data.product.price,
+                                imageUrl: data.product.imageUrl
+                            });
+                            if (recent.length > 5) recent.pop();
+                            localStorage.setItem('recently_viewed', JSON.stringify(recent));
+                        } catch (e) {
+                            console.error(e);
+                        }
+                    }
                 }
             } catch (err) {
                 if (!cancelled) {
@@ -194,7 +238,21 @@ export default function ProductDetailPage() {
         return () => {
             cancelled = true;
         };
-    }, [slug]);
+    }, [slug, user]);
+
+    useEffect(() => {
+        try {
+            const recentStr = localStorage.getItem('recently_viewed');
+            let recent: any[] = recentStr ? JSON.parse(recentStr) : [];
+            if (product) {
+                recent = recent.filter((p: any) => p.slug !== product.slug);
+            }
+            setRecentlyViewed(recent);
+        } catch (e) {
+            console.error(e);
+        }
+    }, [product]);
+
 
     const images = useMemo(() => {
         if (!product?.images?.length) {
@@ -287,6 +345,69 @@ export default function ProductDetailPage() {
                 setCartMessage(`Lỗi: ${err || 'Không thể thêm sản phẩm'}`);
                 window.setTimeout(() => setCartMessage(null), 3500);
             });
+    };
+
+    const handleSubmitReview = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!user) {
+            navigate(`/login?redirect=${encodeURIComponent(window.location.pathname)}`);
+            return;
+        }
+        if (!commentInput.trim()) {
+            setReviewError('Vui lòng nhập nội dung đánh giá.');
+            return;
+        }
+        if (commentInput.trim().length < 10) {
+            setReviewError('Bình luận tối thiểu 10 ký tự.');
+            return;
+        }
+
+        setReviewLoading(true);
+        setReviewError(null);
+        setReviewSuccess(null);
+
+        try {
+            const res = await axiosInstance.post(`/catalog/products/${product.id}/reviews`, {
+                rating: ratingInput,
+                comment: commentInput
+            });
+
+            setReviewSuccess(res.data?.message || 'Đánh giá sản phẩm thành công! Bạn nhận được +100 điểm thưởng.');
+            setCommentInput('');
+            setRatingInput(5);
+            setReviewOpen(false);
+
+            // Reload product details after 2 seconds
+            window.setTimeout(async () => {
+                const updatedRes = await axiosInstance.get<ApiEnvelope<ProductDetailResponse>>(
+                    `/catalog/products/${slug}`
+                );
+                setProduct(updatedRes.data?.product ?? null);
+                setReviewSuccess(null);
+            }, 2000);
+        } catch (err: any) {
+            const msg = err?.response?.data?.message || err?.message || 'Không thể gửi đánh giá. Vui lòng kiểm tra lại đơn hàng của bạn.';
+            setReviewError(msg);
+        } finally {
+            setReviewLoading(false);
+        }
+    };
+
+    const handleToggleWishlist = async () => {
+        if (!user) {
+            navigate(`/login?redirect=${encodeURIComponent(window.location.pathname)}`);
+            return;
+        }
+        try {
+            const res = await axiosInstance.post(`/users/wishlist/${product.id}`);
+            setInWishlist(res.data?.inWishlist);
+            setCartMessage(res.data?.message || 'Đã cập nhật danh sách yêu thích');
+            window.setTimeout(() => setCartMessage(null), 3000);
+        } catch (err: any) {
+            const msg = err?.response?.data?.message || err?.message || 'Không thể cập nhật danh sách yêu thích';
+            setCartMessage(`Lỗi: ${msg}`);
+            window.setTimeout(() => setCartMessage(null), 3000);
+        }
     };
 
     return (
@@ -425,10 +546,17 @@ export default function ProductDetailPage() {
                             </button>
                             <button
                                 type="button"
-                                className="flex h-14 w-full items-center justify-center gap-2 rounded-[24px] bg-surface-container-low text-sm font-bold text-on-surface transition hover:bg-surface-container-high active:scale-95"
+                                onClick={handleToggleWishlist}
+                                className={`flex h-14 w-full items-center justify-center gap-2 rounded-[24px] text-sm font-bold transition active:scale-95 ${
+                                    inWishlist
+                                        ? 'bg-red-50 text-red-600 hover:bg-red-100'
+                                        : 'bg-surface-container-low text-on-surface hover:bg-surface-container-high'
+                                }`}
                             >
-                                <span className="material-symbols-outlined">favorite</span>
-                                Save to Wishlist
+                                <span className={`material-symbols-outlined ${inWishlist ? 'material-symbols-filled text-red-600' : ''}`}>
+                                    favorite
+                                </span>
+                                {inWishlist ? 'Saved in Wishlist' : 'Save to Wishlist'}
                             </button>
                         </div>
 
@@ -583,6 +711,47 @@ export default function ProductDetailPage() {
 
                 <SimilarProducts products={similarProducts} categoryName={categoryName} />
 
+                {/* Recently Viewed Products */}
+                {recentlyViewed && recentlyViewed.length > 0 && (
+                    <section className="mt-20">
+                        <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
+                            <div>
+                                <h2 className="text-3xl font-bold text-on-surface">Sản phẩm đã xem gần đây</h2>
+                                <p className="mt-2 text-on-surface-variant">
+                                    Các sản phẩm bạn đã quan tâm trước đó
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+                            {recentlyViewed.map((item) => (
+                                <Link
+                                    key={item.id}
+                                    to={`/products/${item.slug}`}
+                                    className="group cursor-pointer"
+                                >
+                                    <div className="relative mb-4 aspect-[4/5] overflow-hidden rounded-[24px] bg-surface-container-low transition-shadow hover:shadow-[0_10px_30px_rgba(0,0,0,0.06)]">
+                                        <img
+                                            src={item.imageUrl || '/PremiumLaptop.png'}
+                                            alt={item.name}
+                                            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                        />
+                                    </div>
+                                    <h3 className="mb-1 text-lg font-semibold text-on-surface transition-colors group-hover:text-primary">
+                                        {item.name}
+                                    </h3>
+                                    <div className="flex items-baseline justify-between gap-2">
+                                        <span className="text-xl font-semibold text-on-surface">
+                                            {formatPrice(item.price)}
+                                        </span>
+                                    </div>
+                                </Link>
+                            ))}
+                        </div>
+                    </section>
+                )}
+
+
                 {/* Reviews */}
                 <section className="mt-20">
                     <div className="mb-12 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
@@ -600,11 +769,82 @@ export default function ProductDetailPage() {
                         </div>
                         <button
                             type="button"
+                            onClick={() => {
+                                if (!user) {
+                                    navigate(`/login?redirect=${encodeURIComponent(window.location.pathname)}`);
+                                } else {
+                                    setReviewOpen(!reviewOpen);
+                                }
+                            }}
                             className="rounded-full bg-surface-container-highest px-6 py-3 text-sm font-bold text-on-surface transition hover:bg-surface-container-high"
                         >
-                            Write a Review
+                            {reviewOpen ? 'Hủy' : 'Write a Review'}
                         </button>
                     </div>
+
+                    {reviewSuccess && (
+                        <div className="mb-6 rounded-xl border border-primary/20 bg-primary/5 px-4 py-3 text-sm text-on-surface">
+                            {reviewSuccess}
+                        </div>
+                    )}
+
+                    {reviewError && (
+                        <div className="mb-6 rounded-xl border border-error/20 bg-red-50 px-4 py-3 text-sm text-error">
+                            {reviewError}
+                        </div>
+                    )}
+
+                    {reviewOpen && (
+                        <form onSubmit={handleSubmitReview} className="mb-12 rounded-[24px] bg-surface-container-low p-8 space-y-6">
+                            <h3 className="text-2xl font-semibold">Viết đánh giá của bạn</h3>
+                            <div>
+                                <label className="block text-sm font-semibold mb-2">Số sao đánh giá</label>
+                                <div className="flex gap-2">
+                                    {[1, 2, 3, 4, 5].map((star) => (
+                                        <button
+                                            key={star}
+                                            type="button"
+                                            onClick={() => setRatingInput(star)}
+                                            className="text-primary focus:outline-none transition active:scale-90"
+                                        >
+                                            <span className={`material-symbols-outlined text-[32px] ${ratingInput >= star ? 'material-symbols-filled' : ''}`}>
+                                                star
+                                            </span>
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                            <div>
+                                <label className="block text-sm font-semibold mb-2">Ý kiến nhận xét *</label>
+                                <textarea
+                                    value={commentInput}
+                                    onChange={(e) => {
+                                        setCommentInput(e.target.value);
+                                        if (reviewError) setReviewError(null);
+                                    }}
+                                    placeholder="Nhập tối thiểu 10 ký tự nhận xét về chất lượng sản phẩm..."
+                                    className="w-full rounded-xl border border-outline-variant bg-white px-4 py-3 text-sm focus:border-primary focus:outline-none transition h-28 resize-none"
+                                    required
+                                />
+                            </div>
+                            <div className="flex gap-4">
+                                <button
+                                    type="submit"
+                                    disabled={reviewLoading}
+                                    className="rounded-full bg-primary px-8 py-3 text-sm font-bold text-on-primary transition hover:opacity-90 active:scale-95 disabled:opacity-60"
+                                >
+                                    {reviewLoading ? 'Đang gửi...' : 'Gửi đánh giá & Tích điểm'}
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => setReviewOpen(false)}
+                                    className="rounded-full bg-surface-container-highest px-8 py-3 text-sm font-bold transition hover:bg-surface-container-high"
+                                >
+                                    Hủy
+                                </button>
+                            </div>
+                        </form>
+                    )}
 
                     <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
                         {reviews.slice(0, 3).map((review) => (

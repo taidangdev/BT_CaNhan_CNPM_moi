@@ -114,6 +114,13 @@ Product.belongsToMany(User, {
     as: 'wishlistedBy'
 });
 
+Wishlist.belongsTo(Product, { foreignKey: 'productId', as: 'product' });
+Product.hasMany(Wishlist, { foreignKey: 'productId', as: 'wishlists' });
+
+Wishlist.belongsTo(User, { foreignKey: 'userId', as: 'user' });
+User.hasMany(Wishlist, { foreignKey: 'userId', as: 'wishlists' });
+
+
 /** Use alter: false to avoid MySQL duplicate-index issues on existing tables. */
 const syncDatabase = async (options = { alter: false }) => {
     await sequelize.sync(options);

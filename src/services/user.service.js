@@ -123,8 +123,72 @@ const getUserPublicById = async (userId) => {
     return user;
 };
 
+const toggleWishlist = async (userId, productId) => {
+    const { Wishlist, Product } = require('../models');
+
+    const product = await Product.findByPk(productId);
+    if (!product) {
+        throw new Error('Sản phẩm không tồn tại');
+    }
+
+    const existing = await Wishlist.findOne({
+        where: { userId, productId }
+    });
+
+    if (existing) {
+        await existing.destroy();
+        return { message: 'Đã xóa khỏi danh sách yêu thích', inWishlist: false };
+    } else {
+        await Wishlist.create({ userId, productId });
+        return { message: 'Đã thêm vào danh sách yêu thích', inWishlist: true };
+    }
+};
+
+const getWishlist = async (userId) => {
+    const { Wishlist, Product, ProductImage, Category } = require('../models');
+    const rows = await Wishlist.findAll({
+        where: { userId },
+        include: [{
+            model: Product,
+            as: 'product',
+            include: [
+                {
+                    model: ProductImage,
+                    as: 'images',
+                    attributes: ['id', 'url', 'altText', 'isPrimary', 'sortOrder']
+                },
+                {
+                    model: Category,
+                    as: 'category',
+                    attributes: ['id', 'name', 'slug', 'parentId']
+                }
+            ]
+        }]
+    });
+
+    // Helper map
+    const mapProductRow = (p) => {
+        const json = p.toJSON ? p.toJSON() : p;
+        const primaryImage = json.images?.find((img) => img.isPrimary) || json.images?.[0] || null;
+        return {
+            id: json.id,
+            name: json.name,
+            slug: json.slug,
+            price: Number(json.price),
+            compareAtPrice: json.compareAtPrice != null ? Number(json.compareAtPrice) : null,
+            imageUrl: primaryImage?.url || null,
+            imageAlt: primaryImage?.altText || json.name,
+            category: json.category
+        };
+    };
+
+    return rows.map(r => r.product ? mapProductRow(r.product) : null).filter(Boolean);
+};
+
 module.exports = {
     requestEditProfileOtp,
     updateUserProfile,
-    getUserPublicById
+    getUserPublicById,
+    toggleWishlist,
+    getWishlist
 };

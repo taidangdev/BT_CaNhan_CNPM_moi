@@ -33,4 +33,16 @@ router.put(
     userController.editProfile
 );
 
+router.post(
+    '/wishlist/:productId',
+    requirePermission('profile:update'),
+    userController.toggleWishlist
+);
+
+router.get(
+    '/wishlist',
+    requirePermission('profile:read'),
+    userController.getWishlist
+);
+
 module.exports = router;

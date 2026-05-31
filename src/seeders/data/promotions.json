@@ -7,5 +7,21 @@
     "minOrderAmount": 30,
     "categorySlug": "merchandise",
     "isActive": true
+  },
+  {
+    "code": "UTESALE20",
+    "name": "UTE Sale 20% — Áp dụng toàn sàn",
+    "type": "percentage",
+    "value": 20,
+    "minOrderAmount": 0,
+    "isActive": true
+  },
+  {
+    "code": "WELCOME100",
+    "name": "Chào mừng tân sinh viên UTE — Giảm 100k",
+    "type": "fixed_amount",
+    "value": 100000,
+    "minOrderAmount": 200000,
+    "isActive": true
   }
 ]

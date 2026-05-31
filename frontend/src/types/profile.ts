@@ -14,6 +14,7 @@ export interface ProfileUser {
     avatarUrl?: string | null;
     emailVerifiedAt?: string | null;
     major?: ProductMajor | null;
+    points?: number | null;
 }
 
 export interface ProfileUpdatePayload {

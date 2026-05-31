@@ -11,18 +11,12 @@ const TEXT_BODY = '#434655';
 interface NavLink {
     label: string;
     to: string;
-    matchPath?: boolean;
 }
 
 const NAV_LINKS: NavLink[] = [
-    { label: 'Home', to: '/' },
-    { label: 'Categories', to: '/categories', matchPath: true },
-    { label: 'Study Tools', to: '/categories?category=study-tools' },
-    { label: 'Technology', to: '/categories?category=technology' },
-    { label: 'Merchandise', to: '/categories?category=merchandise' },
-    { label: 'Student Life', to: '/categories?category=student-life' },
-    { label: 'Second-hand', to: '/categories?category=second-hand' },
-    { label: 'Support', to: '/#support' }
+    { label: 'Trang chủ', to: '/' },
+    { label: 'Sản phẩm', to: '/categories' },
+    { label: 'Hỗ trợ', to: '/#support' }
 ];
 
 function profileLabel(user: AuthUser | null | undefined): string {
@@ -34,19 +28,13 @@ function profileInitial(user: AuthUser | null | undefined): string {
 }
 
 function isNavActive(location: Location, link: NavLink): boolean {
-    if (link.matchPath) {
-        return location.pathname === '/categories' && !location.search.includes('category=');
-    }
-    if (link.to.startsWith('/categories?')) {
-        return `${location.pathname}${location.search}` === link.to;
-    }
     if (link.to === '/') {
         return location.pathname === '/' && !location.hash;
     }
     if (link.to.startsWith('/#')) {
         return location.pathname === '/' && location.hash === link.to.slice(1);
     }
-    return location.pathname === link.to;
+    return location.pathname.startsWith(link.to);
 }
 
 export default function ShopHeader() {

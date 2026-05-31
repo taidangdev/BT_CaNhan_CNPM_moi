@@ -24,6 +24,7 @@ const ensureUserColumns = async (sequelize) => {
     await addIfMissing('studentId', { type: DataTypes.STRING(20), allowNull: true });
     await addIfMissing('avatarUrl', { type: DataTypes.STRING(500), allowNull: true });
     await addIfMissing('emailVerifiedAt', { type: DataTypes.DATE, allowNull: true });
+    await addIfMissing('points', { type: DataTypes.INTEGER, allowNull: false, defaultValue: 0 });
 };
 
 module.exports = { ensureUserColumns };

@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { fetchUserProfile } from '../store/profileSlice';
 import { logout } from '../store/authSlice';
 import ProfileEditModal from '../components/profile/ProfileEditModal';
 import type { AuthUser } from '../types/auth';
 import type { ProfileUser } from '../types/profile';
+import axiosInstance from '../services/axiosConfig';
+import { formatPrice } from '../utils/formatPrice';
+
 
 const DEFAULT_AVATAR =
     'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=256&h=256&fit=crop&crop=faces';
@@ -136,10 +139,23 @@ const ProfilePage = () => {
 
     const [activeSection, setActiveSection] = useState('overview');
     const [editOpen, setEditOpen] = useState(false);
+    const [wishlistItems, setWishlistItems] = useState<any[]>([]);
 
     useEffect(() => {
         dispatch(fetchUserProfile());
     }, [dispatch]);
+
+    useEffect(() => {
+        if (user || authUser) {
+            axiosInstance.get('/users/wishlist')
+                .then((res: any) => {
+                    setWishlistItems(res.data?.products || []);
+                })
+                .catch(e => console.error(e));
+        }
+    }, [user, authUser]);
+
+
 
     const handleLogout = () => {
         dispatch(logout());
@@ -357,13 +373,44 @@ const ProfilePage = () => {
                                     </div>
                                 </section>
 
-                                {/* Wishlist placeholder */}
-                                <section id="section-wishlist">
-                                    <h2 className="mb-4 text-2xl font-semibold text-on-surface">Wishlist</h2>
-                                    <p className="rounded-[24px] bg-surface-container-low p-8 text-center text-on-surface-variant">
-                                        Your saved items will appear here.
-                                    </p>
+                                {/* Wishlist */}
+                                <section id="section-wishlist" className="mb-12">
+                                    <h2 className="mb-4 text-2xl font-semibold text-on-surface">Danh sách sản phẩm yêu thích</h2>
+                                    {wishlistItems.length === 0 ? (
+                                        <p className="rounded-[24px] bg-surface-container-low p-8 text-center text-on-surface-variant">
+                                            Danh sách sản phẩm yêu thích của bạn đang trống.
+                                        </p>
+                                    ) : (
+                                        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                                            {wishlistItems.map((product) => (
+                                                <div key={product.id} className="soft-shadow rounded-[24px] bg-white p-4 flex flex-col justify-between">
+                                                    <div>
+                                                        <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[20px] bg-surface-container-low mb-4">
+                                                            <img
+                                                                src={product.imageUrl || '/PremiumLaptop.png'}
+                                                                alt={product.name}
+                                                                className="h-full w-full object-cover"
+                                                            />
+                                                        </div>
+                                                        <h3 className="text-lg font-bold text-on-surface mb-1">
+                                                            {product.name}
+                                                        </h3>
+                                                        <p className="text-sm font-semibold text-primary mb-3">
+                                                            {formatPrice(product.price)}
+                                                        </p>
+                                                    </div>
+                                                    <Link
+                                                        to={`/products/${product.slug}`}
+                                                        className="block text-center rounded-full bg-primary py-2.5 text-xs font-bold text-on-primary hover:opacity-90 transition active:scale-95"
+                                                    >
+                                                        Xem chi tiết
+                                                    </Link>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
                                 </section>
+
 
                                 {/* Reviews */}
                                 <section id="section-reviews">

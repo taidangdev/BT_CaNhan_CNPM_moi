@@ -482,11 +482,64 @@ const getHomePageData = async () => {
     };
 };
 
+const createProductReview = async (userId, productId, { rating, comment }) => {
+    const { Order, OrderItem, User, ProductReview } = require('../models');
+
+    // 1. Kiểm tra đơn hàng xem đã giao hàng thành công (status = 'delivered') chứa productId này chưa
+    const orderDelivered = await Order.findOne({
+        where: { userId, status: 'delivered' },
+        include: [{
+            model: OrderItem,
+            as: 'items',
+            where: { productId }
+        }]
+    });
+
+    if (!orderDelivered) {
+        const err = new Error('Bạn chỉ có thể đánh giá sản phẩm sau khi đã mua hàng thành công.');
+        err.statusCode = 403;
+        throw err;
+    }
+
+    // 2. Kiểm tra xem người dùng đã đánh giá sản phẩm này chưa (tránh spam)
+    const existingReview = await ProductReview.findOne({
+        where: { userId, productId }
+    });
+    if (existingReview) {
+        const err = new Error('Bạn đã đánh giá sản phẩm này rồi.');
+        err.statusCode = 400;
+        throw err;
+    }
+
+    // 3. Tạo đánh giá ở trạng thái 'approved' để hiển thị luôn
+    const review = await ProductReview.create({
+        productId,
+        userId,
+        orderId: orderDelivered.id,
+        rating,
+        comment,
+        status: 'approved'
+    });
+
+    // 4. Cộng điểm thưởng cho sinh viên (+100 điểm)
+    const user = await User.findByPk(userId);
+    if (user) {
+        user.points = (user.points || 0) + 100;
+        await user.save();
+    }
+
+    return {
+        message: 'Đánh giá sản phẩm thành công! Bạn nhận được +100 điểm tích lũy.',
+        review
+    };
+};
+
 module.exports = {
     listCategoriesWithCounts,
     listProducts,
     getProductBySlug,
     getSimilarProducts,
     listActiveBanners,
-    getHomePageData
+    getHomePageData,
+    createProductReview
 };

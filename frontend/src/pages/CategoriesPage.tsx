@@ -1,5 +1,6 @@
 import { Fragment, useCallback, useEffect, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams, useNavigate } from 'react-router-dom';
+import { useAppSelector } from '../store/hooks';
 import axiosInstance from '../services/axiosConfig';
 import ProductSearchBox from '../components/catalog/ProductSearchBox';
 import { formatPrice } from '../utils/formatPrice';
@@ -31,41 +32,67 @@ function categoryLabel(product: CatalogProduct) {
     return c.name;
 }
 
-function ProductCard({ product }: { product: CatalogProduct }) {
+function ProductCard({ 
+    product, 
+    isWishlisted, 
+    onToggleWishlist 
+}: { 
+    product: CatalogProduct; 
+    isWishlisted: boolean; 
+    onToggleWishlist: () => void; 
+}) {
     const hasDiscount =
         product.compareAtPrice != null && product.compareAtPrice > product.price;
 
     return (
-        <Link to={`/products/${product.slug}`} className="group cursor-pointer">
-            <div className="relative mb-6 aspect-[4/5] overflow-hidden rounded-[24px] bg-surface-container-low shadow-none transition-all duration-300 hover:shadow-[0_10px_30px_rgba(0,0,0,0.04)]">
-                <img
-                    src={product.imageUrl || '/PremiumLaptop.png'}
-                    alt={product.imageAlt || product.name}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                {product.isFeatured && (
-                    <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-primary backdrop-blur-md">
-                        Student Pick
-                    </span>
-                )}
-            </div>
-            <div>
-                <h4 className="mb-1 text-lg font-semibold text-on-surface transition-colors group-hover:text-primary">
-                    {product.name}
-                </h4>
-                <p className="mb-2 text-xs text-on-surface-variant">{categoryLabel(product)}</p>
-                <div className="flex items-baseline gap-2">
-                    <span className="text-xl font-semibold text-on-surface">
-                        {formatPrice(product.price)}
-                    </span>
-                    {hasDiscount && (
-                        <span className="text-xs text-on-surface-variant line-through">
-                            {formatPrice(product.compareAtPrice)}
+        <div className="group relative flex flex-col justify-between">
+            <Link to={`/products/${product.slug}`} className="cursor-pointer flex-grow">
+                <div className="relative mb-6 aspect-[4/5] overflow-hidden rounded-[24px] bg-surface-container-low shadow-none transition-all duration-300 hover:shadow-[0_10px_30px_rgba(0,0,0,0.04)]">
+                    <img
+                        src={product.imageUrl || '/PremiumLaptop.png'}
+                        alt={product.imageAlt || product.name}
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    {product.isFeatured && (
+                        <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-primary backdrop-blur-md">
+                            Student Pick
                         </span>
                     )}
                 </div>
-            </div>
-        </Link>
+                <div>
+                    <h4 className="mb-1 text-lg font-semibold text-on-surface transition-colors group-hover:text-primary">
+                        {product.name}
+                    </h4>
+                    <p className="mb-2 text-xs text-on-surface-variant">{categoryLabel(product)}</p>
+                    <div className="flex items-baseline gap-2">
+                        <span className="text-xl font-semibold text-on-surface">
+                            {formatPrice(product.price)}
+                        </span>
+                        {hasDiscount && (
+                            <span className="text-xs text-on-surface-variant line-through">
+                                {formatPrice(product.compareAtPrice)}
+                            </span>
+                        )}
+                    </div>
+                </div>
+            </Link>
+
+            {/* Wishlist toggle button on top right of the card */}
+            <button
+                type="button"
+                onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    onToggleWishlist();
+                }}
+                className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/80 shadow-md backdrop-blur-md transition hover:bg-white active:scale-90"
+                aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
+            >
+                <span className={`material-symbols-outlined text-xl ${isWishlisted ? 'material-symbols-filled text-red-600' : 'text-on-surface-variant'}`}>
+                    favorite
+                </span>
+            </button>
+        </div>
     );
 }
 
@@ -131,6 +158,45 @@ function CategoriesFooter() {
 export default function CategoriesPage() {
     const [searchParams, setSearchParams] = useSearchParams();
 
+    const user = useAppSelector((state) => state.auth.user);
+    const navigate = useNavigate();
+    const [wishlistIds, setWishlistIds] = useState<Set<number>>(new Set());
+
+    useEffect(() => {
+        if (user) {
+            axiosInstance.get('/users/wishlist')
+                .then((res: any) => {
+                    const ids = new Set<number>((res.data?.products ?? []).map((p: any) => p.id));
+                    setWishlistIds(ids);
+                })
+                .catch(e => console.error(e));
+        } else {
+            setWishlistIds(new Set());
+        }
+    }, [user]);
+
+    const handleToggleWishlist = async (productId: number) => {
+        if (!user) {
+            navigate(`/login?redirect=${encodeURIComponent(window.location.pathname + window.location.search)}`);
+            return;
+        }
+        try {
+            const res = await axiosInstance.post<any>(`/users/wishlist/${productId}`);
+            const inWishlist = res.data?.inWishlist || (res as any).inWishlist;
+            setWishlistIds(prev => {
+                const next = new Set(prev);
+                if (inWishlist) {
+                    next.add(productId);
+                } else {
+                    next.delete(productId);
+                }
+                return next;
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
     const q = searchParams.get('q') || '';
     const category = searchParams.get('category') || 'all';
     const majorId = searchParams.get('majorId') || '';
@@ -149,6 +215,7 @@ export default function CategoriesPage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [searchInput, setSearchInput] = useState(q);
+
 
     useEffect(() => {
         setSearchInput(q);
@@ -427,7 +494,12 @@ export default function CategoriesPage() {
                     ) : (
                         <div className="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
                             {products.map((product) => (
-                                <ProductCard key={product.id} product={product} />
+                                <ProductCard 
+                                    key={product.id} 
+                                    product={product} 
+                                    isWishlisted={wishlistIds.has(product.id)}
+                                    onToggleWishlist={() => handleToggleWishlist(product.id)}
+                                />
                             ))}
                         </div>
                     )}

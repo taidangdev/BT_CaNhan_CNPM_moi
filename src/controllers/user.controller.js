@@ -62,8 +62,31 @@ const editProfile = async (req, res, next) => {
     }
 };
 
+const toggleWishlist = async (req, res, next) => {
+    try {
+        const userId = req.user.id;
+        const productId = Number(req.params.productId);
+        const result = await userService.toggleWishlist(userId, productId);
+        return successResponse(res, 200, result.message, { inWishlist: result.inWishlist });
+    } catch (error) {
+        next(error);
+    }
+};
+
+const getWishlist = async (req, res, next) => {
+    try {
+        const userId = req.user.id;
+        const products = await userService.getWishlist(userId);
+        return successResponse(res, 200, 'OK', { products });
+    } catch (error) {
+        next(error);
+    }
+};
+
 module.exports = {
     getMe,
     requestEditProfileOtp,
-    editProfile
+    editProfile,
+    toggleWishlist,
+    getWishlist
 };
