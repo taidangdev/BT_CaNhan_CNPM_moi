@@ -18,6 +18,8 @@ const seedProducts = async (categorySlugToId, majorCodeToId) => {
                 categoryId,
                 productType: row.productType || 'standard',
                 status: 'active',
+                viewCount: 0,
+                soldCount: 0,
                 publishedAt: new Date()
             }
         });
@@ -27,7 +29,9 @@ const seedProducts = async (categorySlugToId, majorCodeToId) => {
                 ...productData,
                 categoryId,
                 productType: row.productType || 'standard',
-                status: 'active'
+                status: 'active',
+                viewCount: 0,
+                soldCount: 0
             });
         }
 

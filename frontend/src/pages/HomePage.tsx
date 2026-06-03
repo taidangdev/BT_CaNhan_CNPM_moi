@@ -775,16 +775,6 @@ export default function HomePage() {
                             onToggleWishlist={handleToggleWishlist}
                         />
                         <ProductSection
-                            id="bestsellers"
-                            title="Best Sellers"
-                            products={bestSellers}
-                            viewAllTo="/categories?sort=popular"
-                            background={SURFACE}
-                            carousel={true}
-                            wishlistIds={wishlistIds}
-                            onToggleWishlist={handleToggleWishlist}
-                        />
-                        <ProductSection
                             id="mostviewed"
                             title="Most Viewed"
                             products={mostViewed}

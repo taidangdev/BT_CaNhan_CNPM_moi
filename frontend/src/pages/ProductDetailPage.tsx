@@ -207,15 +207,20 @@ export default function ProductDetailPage() {
                         try {
                             const recentStr = localStorage.getItem('recently_viewed');
                             let recent: any[] = recentStr ? JSON.parse(recentStr) : [];
+                            
+                            const existing = recent.find((p: any) => p.slug === data.product.slug);
+                            const views = existing ? (existing.views ?? 1) + 1 : 1;
+
                             recent = recent.filter((p: any) => p.slug !== data.product.slug);
                             recent.unshift({
                                 id: data.product.id,
                                 name: data.product.name,
                                 slug: data.product.slug,
                                 price: data.product.price,
-                                imageUrl: data.product.imageUrl
+                                imageUrl: data.product.imageUrl,
+                                views: views
                             });
-                            if (recent.length > 5) recent.pop();
+                            if (recent.length > 10) recent.pop();
                             localStorage.setItem('recently_viewed', JSON.stringify(recent));
                         } catch (e) {
                             console.error(e);
@@ -247,6 +252,8 @@ export default function ProductDetailPage() {
             if (product) {
                 recent = recent.filter((p: any) => p.slug !== product.slug);
             }
+            // Only display products that the user has viewed more than once
+            recent = recent.filter((p: any) => (p.views ?? 1) > 1);
             setRecentlyViewed(recent);
         } catch (e) {
             console.error(e);

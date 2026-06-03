@@ -7,6 +7,8 @@ const SALT_ROUNDS = 10;
 /**
  * Idempotent: creates users when missing (matched by email).
  */
+const { Op } = require('sequelize');
+
 const seedUsers = async () => {
     await User.update({ role: 'customer' }, { where: { role: 'user' } });
 
@@ -20,20 +22,26 @@ const seedUsers = async () => {
             majorId = major?.id ?? null;
         }
 
-        const [user, created] = await User.findOrCreate({
-            where: { email: attrs.email },
-            defaults: {
-                ...attrs,
-                majorId,
-                password
+        const user = await User.findOne({
+            where: {
+                [Op.or]: [
+                    { email: attrs.email },
+                    { username: attrs.username }
+                ]
             }
         });
 
-        if (!created) {
+        if (user) {
             await user.update({ ...attrs, majorId });
+            console.log(`  · user: ${user.email}`);
+        } else {
+            const newUser = await User.create({
+                ...attrs,
+                majorId,
+                password
+            });
+            console.log(`  + user: ${newUser.email}`);
         }
-
-        console.log(`  ${created ? '+' : '·'} user: ${user.email}`);
     }
 };
 

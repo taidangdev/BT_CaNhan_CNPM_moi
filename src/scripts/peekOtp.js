@@ -4,7 +4,12 @@
  */
 require('dotenv').config();
 const redisClient = require('../config/redis');
-const { otpKeysForEmailInput } = require('../utils/otpRedisKeys');
+const {
+    REGISTER_OTP_PREFIX,
+    FORGOT_OTP_PREFIX,
+    EDIT_PROFILE_OTP_PREFIX,
+    otpKeysForEmailInput
+} = require('../utils/otpRedisKeys');
 
 const email = process.argv[2];
 if (!email) {
@@ -15,19 +20,27 @@ if (!email) {
 const run = async () => {
     try {
         await redisClient.connect();
-        const keys = otpKeysForEmailInput(email);
+        const prefixes = [
+            { name: 'Register', value: REGISTER_OTP_PREFIX },
+            { name: 'Forgot Password', value: FORGOT_OTP_PREFIX },
+            { name: 'Edit Profile', value: EDIT_PROFILE_OTP_PREFIX }
+        ];
         let found = false;
-        for (const key of keys) {
-            const otp = await redisClient.get(key);
-            if (otp) {
-                console.log(`OTP cho ${email}: ${otp}`);
-                console.log(`Redis key: ${key}`);
-                found = true;
+
+        for (const prefix of prefixes) {
+            const keys = otpKeysForEmailInput(prefix.value, email);
+            for (const key of keys) {
+                const otp = await redisClient.get(key);
+                if (otp) {
+                    console.log(`[${prefix.name}] OTP cho ${email}: ${otp}`);
+                    console.log(`Redis key: ${key}`);
+                    found = true;
+                }
             }
         }
         if (!found) {
-            console.log(`Không có OTP cho các key: ${keys.join(', ')}`);
-            console.log('(Hết hạn TTL, sai email, hoặc chưa đăng ký.)');
+            console.log(`Không có OTP nào cho email ${email} trong Redis.`);
+            console.log('(Hết hạn TTL, sai email, hoặc chưa yêu cầu gửi OTP.)');
         }
     } catch (e) {
         console.error(e.message || e);

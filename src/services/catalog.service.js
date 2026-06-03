@@ -406,6 +406,7 @@ const getProductBySlug = async (slug) => {
     }
 
     await product.increment('viewCount');
+    await product.reload();
 
     const mapped = mapProductDetail(product);
     const similarProducts = await getSimilarProducts(
