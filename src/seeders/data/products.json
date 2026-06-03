@@ -6,15 +6,146 @@
     "categorySlug": "merchandise-uniform",
     "shortDescription": "Áo hoodie cotton 100%, in logo UTE phiên bản kỹ thuật.",
     "description": "Áo Hoodie UTE Limited — thiết kế dành cho sinh viên kỹ thuật, cotton 100%, form unisex.",
-    "price": 45.0,
-    "compareAtPrice": 55.0,
+    "price": 45,
+    "compareAtPrice": 55,
     "stockQuantity": 120,
     "condition": "new",
     "isFeatured": true,
     "image": "/OHoodieUteLimited.png",
-    "majorCodes": ["GENERAL", "IT", "MECH", "EE"],
-    "tags": ["hoodie", "merchandise", "ute"],
-    "attributes": { "sizes": ["S", "M", "L", "XL"], "colors": ["Navy", "Black"] }
+    "majorCodes": [
+      "GENERAL",
+      "IT",
+      "MECH",
+      "EE"
+    ],
+    "tags": [
+      "hoodie",
+      "merchandise",
+      "ute"
+    ],
+    "attributes": {
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "colors": [
+        "Navy",
+        "Black"
+      ]
+    }
+  },
+  {
+    "sku": "UTE-HOODIE-001-V2",
+    "slug": "ute-engineering-hoodie-v2",
+    "name": "UTE Engineering Hoodie (Ver 2)",
+    "categorySlug": "merchandise-uniform",
+    "shortDescription": "Áo hoodie cotton 100%, in logo UTE phiên bản kỹ thuật.",
+    "description": "Áo Hoodie UTE Limited — thiết kế dành cho sinh viên kỹ thuật, cotton 100%, form unisex.",
+    "price": 45,
+    "compareAtPrice": 55,
+    "stockQuantity": 120,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/OHoodieUteLimited.png",
+    "majorCodes": [
+      "GENERAL",
+      "IT",
+      "MECH",
+      "EE"
+    ],
+    "tags": [
+      "hoodie",
+      "merchandise",
+      "ute"
+    ],
+    "attributes": {
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "colors": [
+        "Navy",
+        "Black"
+      ]
+    }
+  },
+  {
+    "sku": "UTE-HOODIE-001-V3",
+    "slug": "ute-engineering-hoodie-v3",
+    "name": "UTE Engineering Hoodie (Ver 3)",
+    "categorySlug": "merchandise-uniform",
+    "shortDescription": "Áo hoodie cotton 100%, in logo UTE phiên bản kỹ thuật.",
+    "description": "Áo Hoodie UTE Limited — thiết kế dành cho sinh viên kỹ thuật, cotton 100%, form unisex.",
+    "price": 45,
+    "compareAtPrice": 55,
+    "stockQuantity": 120,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/OHoodieUteLimited.png",
+    "majorCodes": [
+      "GENERAL",
+      "IT",
+      "MECH",
+      "EE"
+    ],
+    "tags": [
+      "hoodie",
+      "merchandise",
+      "ute"
+    ],
+    "attributes": {
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "colors": [
+        "Navy",
+        "Black"
+      ]
+    }
+  },
+  {
+    "sku": "UTE-HOODIE-001-V4",
+    "slug": "ute-engineering-hoodie-v4",
+    "name": "UTE Engineering Hoodie (Ver 4)",
+    "categorySlug": "merchandise-uniform",
+    "shortDescription": "Áo hoodie cotton 100%, in logo UTE phiên bản kỹ thuật.",
+    "description": "Áo Hoodie UTE Limited — thiết kế dành cho sinh viên kỹ thuật, cotton 100%, form unisex.",
+    "price": 45,
+    "compareAtPrice": 55,
+    "stockQuantity": 120,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/OHoodieUteLimited.png",
+    "majorCodes": [
+      "GENERAL",
+      "IT",
+      "MECH",
+      "EE"
+    ],
+    "tags": [
+      "hoodie",
+      "merchandise",
+      "ute"
+    ],
+    "attributes": {
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "colors": [
+        "Navy",
+        "Black"
+      ]
+    }
   },
   {
     "sku": "ARD-KIT-001",
@@ -23,13 +154,90 @@
     "categorySlug": "study-electronics",
     "shortDescription": "Arduino Uno R3, cảm biến, LED và điện trở cho thực hành.",
     "description": "Bộ kit hoàn chỉnh cho các môn thực hành điện tử và nhúng.",
-    "price": 89.0,
+    "price": 89,
     "stockQuantity": 45,
     "condition": "new",
     "isFeatured": true,
     "image": "/ArduinoKitStarterPro.png",
-    "majorCodes": ["IT", "EE", "GENERAL"],
-    "tags": ["arduino", "kit", "electronics"]
+    "majorCodes": [
+      "IT",
+      "EE",
+      "GENERAL"
+    ],
+    "tags": [
+      "arduino",
+      "kit",
+      "electronics"
+    ]
+  },
+  {
+    "sku": "ARD-KIT-001-V2",
+    "slug": "engineering-starter-kit-v2",
+    "name": "Engineering Starter Kit (Ver 2)",
+    "categorySlug": "study-electronics",
+    "shortDescription": "Arduino Uno R3, cảm biến, LED và điện trở cho thực hành.",
+    "description": "Bộ kit hoàn chỉnh cho các môn thực hành điện tử và nhúng.",
+    "price": 89,
+    "stockQuantity": 45,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/ArduinoKitStarterPro.png",
+    "majorCodes": [
+      "IT",
+      "EE",
+      "GENERAL"
+    ],
+    "tags": [
+      "arduino",
+      "kit",
+      "electronics"
+    ]
+  },
+  {
+    "sku": "ARD-KIT-001-V3",
+    "slug": "engineering-starter-kit-v3",
+    "name": "Engineering Starter Kit (Ver 3)",
+    "categorySlug": "study-electronics",
+    "shortDescription": "Arduino Uno R3, cảm biến, LED và điện trở cho thực hành.",
+    "description": "Bộ kit hoàn chỉnh cho các môn thực hành điện tử và nhúng.",
+    "price": 89,
+    "stockQuantity": 45,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/ArduinoKitStarterPro.png",
+    "majorCodes": [
+      "IT",
+      "EE",
+      "GENERAL"
+    ],
+    "tags": [
+      "arduino",
+      "kit",
+      "electronics"
+    ]
+  },
+  {
+    "sku": "ARD-KIT-001-V4",
+    "slug": "engineering-starter-kit-v4",
+    "name": "Engineering Starter Kit (Ver 4)",
+    "categorySlug": "study-electronics",
+    "shortDescription": "Arduino Uno R3, cảm biến, LED và điện trở cho thực hành.",
+    "description": "Bộ kit hoàn chỉnh cho các môn thực hành điện tử và nhúng.",
+    "price": 89,
+    "stockQuantity": 45,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/ArduinoKitStarterPro.png",
+    "majorCodes": [
+      "IT",
+      "EE",
+      "GENERAL"
+    ],
+    "tags": [
+      "arduino",
+      "kit",
+      "electronics"
+    ]
   },
   {
     "sku": "LAMP-LED-001",
@@ -38,13 +246,82 @@
     "categorySlug": "life-dorm",
     "shortDescription": "Đèn học chống cận, 3 chế độ ánh sáng.",
     "description": "Đèn bàn LED tối giản, phù hợp phòng trọ và bàn học.",
-    "price": 32.0,
+    "price": 32,
     "stockQuantity": 80,
     "condition": "new",
     "isFeatured": true,
     "image": "/NHcChngCnLed.png",
-    "majorCodes": ["GENERAL"],
-    "tags": ["lamp", "dorm", "study"]
+    "majorCodes": [
+      "GENERAL"
+    ],
+    "tags": [
+      "lamp",
+      "dorm",
+      "study"
+    ]
+  },
+  {
+    "sku": "LAMP-LED-001-V2",
+    "slug": "minimalist-study-lamp-v2",
+    "name": "Minimalist Study Lamp (Ver 2)",
+    "categorySlug": "life-dorm",
+    "shortDescription": "Đèn học chống cận, 3 chế độ ánh sáng.",
+    "description": "Đèn bàn LED tối giản, phù hợp phòng trọ và bàn học.",
+    "price": 32,
+    "stockQuantity": 80,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/NHcChngCnLed.png",
+    "majorCodes": [
+      "GENERAL"
+    ],
+    "tags": [
+      "lamp",
+      "dorm",
+      "study"
+    ]
+  },
+  {
+    "sku": "LAMP-LED-001-V3",
+    "slug": "minimalist-study-lamp-v3",
+    "name": "Minimalist Study Lamp (Ver 3)",
+    "categorySlug": "life-dorm",
+    "shortDescription": "Đèn học chống cận, 3 chế độ ánh sáng.",
+    "description": "Đèn bàn LED tối giản, phù hợp phòng trọ và bàn học.",
+    "price": 32,
+    "stockQuantity": 80,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/NHcChngCnLed.png",
+    "majorCodes": [
+      "GENERAL"
+    ],
+    "tags": [
+      "lamp",
+      "dorm",
+      "study"
+    ]
+  },
+  {
+    "sku": "LAMP-LED-001-V4",
+    "slug": "minimalist-study-lamp-v4",
+    "name": "Minimalist Study Lamp (Ver 4)",
+    "categorySlug": "life-dorm",
+    "shortDescription": "Đèn học chống cận, 3 chế độ ánh sáng.",
+    "description": "Đèn bàn LED tối giản, phù hợp phòng trọ và bàn học.",
+    "price": 32,
+    "stockQuantity": 80,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/NHcChngCnLed.png",
+    "majorCodes": [
+      "GENERAL"
+    ],
+    "tags": [
+      "lamp",
+      "dorm",
+      "study"
+    ]
   },
   {
     "sku": "MOUSE-RGB-001",
@@ -52,13 +329,79 @@
     "name": "Chuột Gaming RGB",
     "categorySlug": "tech-peripherals",
     "shortDescription": "DPI 3200, LED RGB 7 màu, ergonomic.",
-    "price": 25.0,
+    "price": 25,
     "stockQuantity": 60,
     "condition": "new",
     "isFeatured": false,
     "image": "/ChutGamingRgb.png",
-    "majorCodes": ["IT", "GENERAL"],
-    "tags": ["mouse", "gaming"]
+    "majorCodes": [
+      "IT",
+      "GENERAL"
+    ],
+    "tags": [
+      "mouse",
+      "gaming"
+    ]
+  },
+  {
+    "sku": "MOUSE-RGB-001-V2",
+    "slug": "chuot-gaming-rgb-v2",
+    "name": "Chuột Gaming RGB (Ver 2)",
+    "categorySlug": "tech-peripherals",
+    "shortDescription": "DPI 3200, LED RGB 7 màu, ergonomic.",
+    "price": 25,
+    "stockQuantity": 60,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/ChutGamingRgb.png",
+    "majorCodes": [
+      "IT",
+      "GENERAL"
+    ],
+    "tags": [
+      "mouse",
+      "gaming"
+    ]
+  },
+  {
+    "sku": "MOUSE-RGB-001-V3",
+    "slug": "chuot-gaming-rgb-v3",
+    "name": "Chuột Gaming RGB (Ver 3)",
+    "categorySlug": "tech-peripherals",
+    "shortDescription": "DPI 3200, LED RGB 7 màu, ergonomic.",
+    "price": 25,
+    "stockQuantity": 60,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/ChutGamingRgb.png",
+    "majorCodes": [
+      "IT",
+      "GENERAL"
+    ],
+    "tags": [
+      "mouse",
+      "gaming"
+    ]
+  },
+  {
+    "sku": "MOUSE-RGB-001-V4",
+    "slug": "chuot-gaming-rgb-v4",
+    "name": "Chuột Gaming RGB (Ver 4)",
+    "categorySlug": "tech-peripherals",
+    "shortDescription": "DPI 3200, LED RGB 7 màu, ergonomic.",
+    "price": 25,
+    "stockQuantity": 60,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/ChutGamingRgb.png",
+    "majorCodes": [
+      "IT",
+      "GENERAL"
+    ],
+    "tags": [
+      "mouse",
+      "gaming"
+    ]
   },
   {
     "sku": "KB-BT-001",
@@ -66,13 +409,75 @@
     "name": "Bàn phím cơ Bluetooth",
     "categorySlug": "tech-peripherals",
     "shortDescription": "Switch xanh, kết nối đa thiết bị.",
-    "price": 55.0,
+    "price": 55,
     "stockQuantity": 35,
     "condition": "new",
     "isFeatured": false,
     "image": "/BnPhmCBluetooth.png",
-    "majorCodes": ["IT"],
-    "tags": ["keyboard", "bluetooth"]
+    "majorCodes": [
+      "IT"
+    ],
+    "tags": [
+      "keyboard",
+      "bluetooth"
+    ]
+  },
+  {
+    "sku": "KB-BT-001-V2",
+    "slug": "ban-phim-co-bluetooth-v2",
+    "name": "Bàn phím cơ Bluetooth (Ver 2)",
+    "categorySlug": "tech-peripherals",
+    "shortDescription": "Switch xanh, kết nối đa thiết bị.",
+    "price": 55,
+    "stockQuantity": 35,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/BnPhmCBluetooth.png",
+    "majorCodes": [
+      "IT"
+    ],
+    "tags": [
+      "keyboard",
+      "bluetooth"
+    ]
+  },
+  {
+    "sku": "KB-BT-001-V3",
+    "slug": "ban-phim-co-bluetooth-v3",
+    "name": "Bàn phím cơ Bluetooth (Ver 3)",
+    "categorySlug": "tech-peripherals",
+    "shortDescription": "Switch xanh, kết nối đa thiết bị.",
+    "price": 55,
+    "stockQuantity": 35,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/BnPhmCBluetooth.png",
+    "majorCodes": [
+      "IT"
+    ],
+    "tags": [
+      "keyboard",
+      "bluetooth"
+    ]
+  },
+  {
+    "sku": "KB-BT-001-V4",
+    "slug": "ban-phim-co-bluetooth-v4",
+    "name": "Bàn phím cơ Bluetooth (Ver 4)",
+    "categorySlug": "tech-peripherals",
+    "shortDescription": "Switch xanh, kết nối đa thiết bị.",
+    "price": 55,
+    "stockQuantity": 35,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/BnPhmCBluetooth.png",
+    "majorCodes": [
+      "IT"
+    ],
+    "tags": [
+      "keyboard",
+      "bluetooth"
+    ]
   },
   {
     "sku": "NOTEBOOK-UTE-001",
@@ -85,8 +490,70 @@
     "condition": "new",
     "isFeatured": false,
     "image": "/STayUteEngineering.png",
-    "majorCodes": ["GENERAL"],
-    "tags": ["notebook", "stationery"]
+    "majorCodes": [
+      "GENERAL"
+    ],
+    "tags": [
+      "notebook",
+      "stationery"
+    ]
+  },
+  {
+    "sku": "NOTEBOOK-UTE-001-V2",
+    "slug": "so-tay-ute-engineering-v2",
+    "name": "Sổ tay UTE Engineering (Ver 2)",
+    "categorySlug": "merchandise-stationery",
+    "shortDescription": "Giấy A5 200 trang, bìa cứng in cổng trường.",
+    "price": 4.5,
+    "stockQuantity": 200,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/STayUteEngineering.png",
+    "majorCodes": [
+      "GENERAL"
+    ],
+    "tags": [
+      "notebook",
+      "stationery"
+    ]
+  },
+  {
+    "sku": "NOTEBOOK-UTE-001-V3",
+    "slug": "so-tay-ute-engineering-v3",
+    "name": "Sổ tay UTE Engineering (Ver 3)",
+    "categorySlug": "merchandise-stationery",
+    "shortDescription": "Giấy A5 200 trang, bìa cứng in cổng trường.",
+    "price": 4.5,
+    "stockQuantity": 200,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/STayUteEngineering.png",
+    "majorCodes": [
+      "GENERAL"
+    ],
+    "tags": [
+      "notebook",
+      "stationery"
+    ]
+  },
+  {
+    "sku": "NOTEBOOK-UTE-001-V4",
+    "slug": "so-tay-ute-engineering-v4",
+    "name": "Sổ tay UTE Engineering (Ver 4)",
+    "categorySlug": "merchandise-stationery",
+    "shortDescription": "Giấy A5 200 trang, bìa cứng in cổng trường.",
+    "price": 4.5,
+    "stockQuantity": 200,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/STayUteEngineering.png",
+    "majorCodes": [
+      "GENERAL"
+    ],
+    "tags": [
+      "notebook",
+      "stationery"
+    ]
   },
   {
     "sku": "COMPASS-MECH-001",
@@ -94,13 +561,79 @@
     "name": "Bộ compa & thước kẹp Cơ khí",
     "categorySlug": "study-drafting",
     "shortDescription": "Compa kim loại, thước kẹp cho sinh viên Cơ khí.",
-    "price": 18.0,
+    "price": 18,
     "stockQuantity": 40,
     "condition": "new",
     "isFeatured": false,
     "image": "/PremiumLaptop.png",
-    "majorCodes": ["MECH", "CIVIL"],
-    "tags": ["drafting", "mechanical"]
+    "majorCodes": [
+      "MECH",
+      "CIVIL"
+    ],
+    "tags": [
+      "drafting",
+      "mechanical"
+    ]
+  },
+  {
+    "sku": "COMPASS-MECH-001-V2",
+    "slug": "bo-compa-co-khi-v2",
+    "name": "Bộ compa & thước kẹp Cơ khí (Ver 2)",
+    "categorySlug": "study-drafting",
+    "shortDescription": "Compa kim loại, thước kẹp cho sinh viên Cơ khí.",
+    "price": 18,
+    "stockQuantity": 40,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/PremiumLaptop.png",
+    "majorCodes": [
+      "MECH",
+      "CIVIL"
+    ],
+    "tags": [
+      "drafting",
+      "mechanical"
+    ]
+  },
+  {
+    "sku": "COMPASS-MECH-001-V3",
+    "slug": "bo-compa-co-khi-v3",
+    "name": "Bộ compa & thước kẹp Cơ khí (Ver 3)",
+    "categorySlug": "study-drafting",
+    "shortDescription": "Compa kim loại, thước kẹp cho sinh viên Cơ khí.",
+    "price": 18,
+    "stockQuantity": 40,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/PremiumLaptop.png",
+    "majorCodes": [
+      "MECH",
+      "CIVIL"
+    ],
+    "tags": [
+      "drafting",
+      "mechanical"
+    ]
+  },
+  {
+    "sku": "COMPASS-MECH-001-V4",
+    "slug": "bo-compa-co-khi-v4",
+    "name": "Bộ compa & thước kẹp Cơ khí (Ver 4)",
+    "categorySlug": "study-drafting",
+    "shortDescription": "Compa kim loại, thước kẹp cho sinh viên Cơ khí.",
+    "price": 18,
+    "stockQuantity": 40,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/PremiumLaptop.png",
+    "majorCodes": [
+      "MECH",
+      "CIVIL"
+    ],
+    "tags": [
+      "drafting",
+      "mechanical"
+    ]
   },
   {
     "sku": "USED-CALC-001",
@@ -108,14 +641,87 @@
     "name": "Máy tính Casio fx-580VN X (đã qua sử dụng)",
     "categorySlug": "second-hand-consignment",
     "shortDescription": "Ký gửi từ sinh viên khóa trước, còn tốt.",
-    "price": 12.0,
+    "price": 12,
     "stockQuantity": 3,
     "condition": "used",
     "productType": "consignment",
     "isFeatured": false,
     "image": "/ArduinoKitStarterPro.png",
-    "majorCodes": ["GENERAL", "EE", "CIVIL"],
-    "tags": ["second-hand", "calculator"]
+    "majorCodes": [
+      "GENERAL",
+      "EE",
+      "CIVIL"
+    ],
+    "tags": [
+      "second-hand",
+      "calculator"
+    ]
+  },
+  {
+    "sku": "USED-CALC-001-V2",
+    "slug": "may-tinh-casio-cu-v2",
+    "name": "Máy tính Casio fx-580VN X (đã qua sử dụng) (Ver 2)",
+    "categorySlug": "second-hand-consignment",
+    "shortDescription": "Ký gửi từ sinh viên khóa trước, còn tốt.",
+    "price": 12,
+    "stockQuantity": 3,
+    "condition": "used",
+    "productType": "consignment",
+    "isFeatured": false,
+    "image": "/ArduinoKitStarterPro.png",
+    "majorCodes": [
+      "GENERAL",
+      "EE",
+      "CIVIL"
+    ],
+    "tags": [
+      "second-hand",
+      "calculator"
+    ]
+  },
+  {
+    "sku": "USED-CALC-001-V3",
+    "slug": "may-tinh-casio-cu-v3",
+    "name": "Máy tính Casio fx-580VN X (đã qua sử dụng) (Ver 3)",
+    "categorySlug": "second-hand-consignment",
+    "shortDescription": "Ký gửi từ sinh viên khóa trước, còn tốt.",
+    "price": 12,
+    "stockQuantity": 3,
+    "condition": "used",
+    "productType": "consignment",
+    "isFeatured": false,
+    "image": "/ArduinoKitStarterPro.png",
+    "majorCodes": [
+      "GENERAL",
+      "EE",
+      "CIVIL"
+    ],
+    "tags": [
+      "second-hand",
+      "calculator"
+    ]
+  },
+  {
+    "sku": "USED-CALC-001-V4",
+    "slug": "may-tinh-casio-cu-v4",
+    "name": "Máy tính Casio fx-580VN X (đã qua sử dụng) (Ver 4)",
+    "categorySlug": "second-hand-consignment",
+    "shortDescription": "Ký gửi từ sinh viên khóa trước, còn tốt.",
+    "price": 12,
+    "stockQuantity": 3,
+    "condition": "used",
+    "productType": "consignment",
+    "isFeatured": false,
+    "image": "/ArduinoKitStarterPro.png",
+    "majorCodes": [
+      "GENERAL",
+      "EE",
+      "CIVIL"
+    ],
+    "tags": [
+      "second-hand",
+      "calculator"
+    ]
   },
   {
     "sku": "UTE-CAP-001",
@@ -124,13 +730,82 @@
     "categorySlug": "merchandise-accessories",
     "shortDescription": "Mũ snapback thêu nổi logo UTE cá tính.",
     "description": "Nón kết/Snapback thêu chữ UTE chất lượng cao, chất vải kaki bền mát.",
-    "price": 15.0,
+    "price": 15,
     "stockQuantity": 50,
     "condition": "new",
     "isFeatured": false,
     "image": "/STayUteEngineering.png",
-    "majorCodes": ["GENERAL"],
-    "tags": ["cap", "merchandise", "ute"]
+    "majorCodes": [
+      "GENERAL"
+    ],
+    "tags": [
+      "cap",
+      "merchandise",
+      "ute"
+    ]
+  },
+  {
+    "sku": "UTE-CAP-001-V2",
+    "slug": "non-luoi-trai-ute-v2",
+    "name": "Nón lưỡi trai UTE (Ver 2)",
+    "categorySlug": "merchandise-accessories",
+    "shortDescription": "Mũ snapback thêu nổi logo UTE cá tính.",
+    "description": "Nón kết/Snapback thêu chữ UTE chất lượng cao, chất vải kaki bền mát.",
+    "price": 15,
+    "stockQuantity": 50,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/STayUteEngineering.png",
+    "majorCodes": [
+      "GENERAL"
+    ],
+    "tags": [
+      "cap",
+      "merchandise",
+      "ute"
+    ]
+  },
+  {
+    "sku": "UTE-CAP-001-V3",
+    "slug": "non-luoi-trai-ute-v3",
+    "name": "Nón lưỡi trai UTE (Ver 3)",
+    "categorySlug": "merchandise-accessories",
+    "shortDescription": "Mũ snapback thêu nổi logo UTE cá tính.",
+    "description": "Nón kết/Snapback thêu chữ UTE chất lượng cao, chất vải kaki bền mát.",
+    "price": 15,
+    "stockQuantity": 50,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/STayUteEngineering.png",
+    "majorCodes": [
+      "GENERAL"
+    ],
+    "tags": [
+      "cap",
+      "merchandise",
+      "ute"
+    ]
+  },
+  {
+    "sku": "UTE-CAP-001-V4",
+    "slug": "non-luoi-trai-ute-v4",
+    "name": "Nón lưỡi trai UTE (Ver 4)",
+    "categorySlug": "merchandise-accessories",
+    "shortDescription": "Mũ snapback thêu nổi logo UTE cá tính.",
+    "description": "Nón kết/Snapback thêu chữ UTE chất lượng cao, chất vải kaki bền mát.",
+    "price": 15,
+    "stockQuantity": 50,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/STayUteEngineering.png",
+    "majorCodes": [
+      "GENERAL"
+    ],
+    "tags": [
+      "cap",
+      "merchandise",
+      "ute"
+    ]
   },
   {
     "sku": "UTE-BOTTLE-001",
@@ -138,13 +813,75 @@
     "name": "Bình giữ nhiệt UTE Stainless Steel",
     "categorySlug": "merchandise-accessories",
     "shortDescription": "Bình giữ nhiệt inox 304 dung tích 500ml.",
-    "price": 22.0,
+    "price": 22,
     "stockQuantity": 60,
     "condition": "new",
     "isFeatured": true,
     "image": "/NHcChngCnLed.png",
-    "majorCodes": ["GENERAL"],
-    "tags": ["bottle", "merchandise"]
+    "majorCodes": [
+      "GENERAL"
+    ],
+    "tags": [
+      "bottle",
+      "merchandise"
+    ]
+  },
+  {
+    "sku": "UTE-BOTTLE-001-V2",
+    "slug": "binh-giu-nhiet-ute-v2",
+    "name": "Bình giữ nhiệt UTE Stainless Steel (Ver 2)",
+    "categorySlug": "merchandise-accessories",
+    "shortDescription": "Bình giữ nhiệt inox 304 dung tích 500ml.",
+    "price": 22,
+    "stockQuantity": 60,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/NHcChngCnLed.png",
+    "majorCodes": [
+      "GENERAL"
+    ],
+    "tags": [
+      "bottle",
+      "merchandise"
+    ]
+  },
+  {
+    "sku": "UTE-BOTTLE-001-V3",
+    "slug": "binh-giu-nhiet-ute-v3",
+    "name": "Bình giữ nhiệt UTE Stainless Steel (Ver 3)",
+    "categorySlug": "merchandise-accessories",
+    "shortDescription": "Bình giữ nhiệt inox 304 dung tích 500ml.",
+    "price": 22,
+    "stockQuantity": 60,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/NHcChngCnLed.png",
+    "majorCodes": [
+      "GENERAL"
+    ],
+    "tags": [
+      "bottle",
+      "merchandise"
+    ]
+  },
+  {
+    "sku": "UTE-BOTTLE-001-V4",
+    "slug": "binh-giu-nhiet-ute-v4",
+    "name": "Bình giữ nhiệt UTE Stainless Steel (Ver 4)",
+    "categorySlug": "merchandise-accessories",
+    "shortDescription": "Bình giữ nhiệt inox 304 dung tích 500ml.",
+    "price": 22,
+    "stockQuantity": 60,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/NHcChngCnLed.png",
+    "majorCodes": [
+      "GENERAL"
+    ],
+    "tags": [
+      "bottle",
+      "merchandise"
+    ]
   },
   {
     "sku": "PI-4-001",
@@ -152,13 +889,83 @@
     "name": "Raspberry Pi 4 Model B - 4GB RAM",
     "categorySlug": "study-electronics",
     "shortDescription": "Bo mạch nhúng Raspberry Pi 4 chính hãng.",
-    "price": 120.0,
+    "price": 120,
     "stockQuantity": 15,
     "condition": "new",
     "isFeatured": false,
     "image": "/ArduinoKitStarterPro.png",
-    "majorCodes": ["IT", "EE"],
-    "tags": ["raspberry-pi", "iot", "electronics"]
+    "majorCodes": [
+      "IT",
+      "EE"
+    ],
+    "tags": [
+      "raspberry-pi",
+      "iot",
+      "electronics"
+    ]
+  },
+  {
+    "sku": "PI-4-001-V2",
+    "slug": "raspberry-pi-4-model-b-v2",
+    "name": "Raspberry Pi 4 Model B - 4GB RAM (Ver 2)",
+    "categorySlug": "study-electronics",
+    "shortDescription": "Bo mạch nhúng Raspberry Pi 4 chính hãng.",
+    "price": 120,
+    "stockQuantity": 15,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/ArduinoKitStarterPro.png",
+    "majorCodes": [
+      "IT",
+      "EE"
+    ],
+    "tags": [
+      "raspberry-pi",
+      "iot",
+      "electronics"
+    ]
+  },
+  {
+    "sku": "PI-4-001-V3",
+    "slug": "raspberry-pi-4-model-b-v3",
+    "name": "Raspberry Pi 4 Model B - 4GB RAM (Ver 3)",
+    "categorySlug": "study-electronics",
+    "shortDescription": "Bo mạch nhúng Raspberry Pi 4 chính hãng.",
+    "price": 120,
+    "stockQuantity": 15,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/ArduinoKitStarterPro.png",
+    "majorCodes": [
+      "IT",
+      "EE"
+    ],
+    "tags": [
+      "raspberry-pi",
+      "iot",
+      "electronics"
+    ]
+  },
+  {
+    "sku": "PI-4-001-V4",
+    "slug": "raspberry-pi-4-model-b-v4",
+    "name": "Raspberry Pi 4 Model B - 4GB RAM (Ver 4)",
+    "categorySlug": "study-electronics",
+    "shortDescription": "Bo mạch nhúng Raspberry Pi 4 chính hãng.",
+    "price": 120,
+    "stockQuantity": 15,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/ArduinoKitStarterPro.png",
+    "majorCodes": [
+      "IT",
+      "EE"
+    ],
+    "tags": [
+      "raspberry-pi",
+      "iot",
+      "electronics"
+    ]
   },
   {
     "sku": "BREADBOARD-001",
@@ -166,13 +973,87 @@
     "name": "Breadboard & Bộ dây cắm đực-cái",
     "categorySlug": "study-electronics",
     "shortDescription": "Test board lớn và bộ dây nối nhiều màu sắc.",
-    "price": 8.0,
+    "price": 8,
     "stockQuantity": 150,
     "condition": "new",
     "isFeatured": false,
     "image": "/ArduinoKitStarterPro.png",
-    "majorCodes": ["EE", "IT", "GENERAL"],
-    "tags": ["breadboard", "cables", "electronics"]
+    "majorCodes": [
+      "EE",
+      "IT",
+      "GENERAL"
+    ],
+    "tags": [
+      "breadboard",
+      "cables",
+      "electronics"
+    ]
+  },
+  {
+    "sku": "BREADBOARD-001-V2",
+    "slug": "breadboard-bo-day-cam-v2",
+    "name": "Breadboard & Bộ dây cắm đực-cái (Ver 2)",
+    "categorySlug": "study-electronics",
+    "shortDescription": "Test board lớn và bộ dây nối nhiều màu sắc.",
+    "price": 8,
+    "stockQuantity": 150,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/ArduinoKitStarterPro.png",
+    "majorCodes": [
+      "EE",
+      "IT",
+      "GENERAL"
+    ],
+    "tags": [
+      "breadboard",
+      "cables",
+      "electronics"
+    ]
+  },
+  {
+    "sku": "BREADBOARD-001-V3",
+    "slug": "breadboard-bo-day-cam-v3",
+    "name": "Breadboard & Bộ dây cắm đực-cái (Ver 3)",
+    "categorySlug": "study-electronics",
+    "shortDescription": "Test board lớn và bộ dây nối nhiều màu sắc.",
+    "price": 8,
+    "stockQuantity": 150,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/ArduinoKitStarterPro.png",
+    "majorCodes": [
+      "EE",
+      "IT",
+      "GENERAL"
+    ],
+    "tags": [
+      "breadboard",
+      "cables",
+      "electronics"
+    ]
+  },
+  {
+    "sku": "BREADBOARD-001-V4",
+    "slug": "breadboard-bo-day-cam-v4",
+    "name": "Breadboard & Bộ dây cắm đực-cái (Ver 4)",
+    "categorySlug": "study-electronics",
+    "shortDescription": "Test board lớn và bộ dây nối nhiều màu sắc.",
+    "price": 8,
+    "stockQuantity": 150,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/ArduinoKitStarterPro.png",
+    "majorCodes": [
+      "EE",
+      "IT",
+      "GENERAL"
+    ],
+    "tags": [
+      "breadboard",
+      "cables",
+      "electronics"
+    ]
   },
   {
     "sku": "MULTIMETER-001",
@@ -180,13 +1061,79 @@
     "name": "Đồng hồ vạn năng số Digital Multimeter",
     "categorySlug": "study-electronics",
     "shortDescription": "Đo điện áp, dòng điện, điện trở chính xác.",
-    "price": 28.0,
+    "price": 28,
     "stockQuantity": 25,
     "condition": "new",
     "isFeatured": false,
     "image": "/ArduinoKitStarterPro.png",
-    "majorCodes": ["EE", "MECH"],
-    "tags": ["multimeter", "tools"]
+    "majorCodes": [
+      "EE",
+      "MECH"
+    ],
+    "tags": [
+      "multimeter",
+      "tools"
+    ]
+  },
+  {
+    "sku": "MULTIMETER-001-V2",
+    "slug": "dong-ho-van-nang-digital-v2",
+    "name": "Đồng hồ vạn năng số Digital Multimeter (Ver 2)",
+    "categorySlug": "study-electronics",
+    "shortDescription": "Đo điện áp, dòng điện, điện trở chính xác.",
+    "price": 28,
+    "stockQuantity": 25,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/ArduinoKitStarterPro.png",
+    "majorCodes": [
+      "EE",
+      "MECH"
+    ],
+    "tags": [
+      "multimeter",
+      "tools"
+    ]
+  },
+  {
+    "sku": "MULTIMETER-001-V3",
+    "slug": "dong-ho-van-nang-digital-v3",
+    "name": "Đồng hồ vạn năng số Digital Multimeter (Ver 3)",
+    "categorySlug": "study-electronics",
+    "shortDescription": "Đo điện áp, dòng điện, điện trở chính xác.",
+    "price": 28,
+    "stockQuantity": 25,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/ArduinoKitStarterPro.png",
+    "majorCodes": [
+      "EE",
+      "MECH"
+    ],
+    "tags": [
+      "multimeter",
+      "tools"
+    ]
+  },
+  {
+    "sku": "MULTIMETER-001-V4",
+    "slug": "dong-ho-van-nang-digital-v4",
+    "name": "Đồng hồ vạn năng số Digital Multimeter (Ver 4)",
+    "categorySlug": "study-electronics",
+    "shortDescription": "Đo điện áp, dòng điện, điện trở chính xác.",
+    "price": 28,
+    "stockQuantity": 25,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/ArduinoKitStarterPro.png",
+    "majorCodes": [
+      "EE",
+      "MECH"
+    ],
+    "tags": [
+      "multimeter",
+      "tools"
+    ]
   },
   {
     "sku": "T-SQUARE-001",
@@ -194,13 +1141,83 @@
     "name": "Thước chữ T 60cm vẽ kỹ thuật",
     "categorySlug": "study-drafting",
     "shortDescription": "Chất liệu nhựa mica acrylic siêu bền.",
-    "price": 10.0,
+    "price": 10,
     "stockQuantity": 40,
     "condition": "new",
     "isFeatured": false,
     "image": "/PremiumLaptop.png",
-    "majorCodes": ["MECH", "CIVIL", "ARCH"],
-    "tags": ["ruler", "drafting"]
+    "majorCodes": [
+      "MECH",
+      "CIVIL",
+      "ARCH"
+    ],
+    "tags": [
+      "ruler",
+      "drafting"
+    ]
+  },
+  {
+    "sku": "T-SQUARE-001-V2",
+    "slug": "thuoc-chu-t-60cm-v2",
+    "name": "Thước chữ T 60cm vẽ kỹ thuật (Ver 2)",
+    "categorySlug": "study-drafting",
+    "shortDescription": "Chất liệu nhựa mica acrylic siêu bền.",
+    "price": 10,
+    "stockQuantity": 40,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/PremiumLaptop.png",
+    "majorCodes": [
+      "MECH",
+      "CIVIL",
+      "ARCH"
+    ],
+    "tags": [
+      "ruler",
+      "drafting"
+    ]
+  },
+  {
+    "sku": "T-SQUARE-001-V3",
+    "slug": "thuoc-chu-t-60cm-v3",
+    "name": "Thước chữ T 60cm vẽ kỹ thuật (Ver 3)",
+    "categorySlug": "study-drafting",
+    "shortDescription": "Chất liệu nhựa mica acrylic siêu bền.",
+    "price": 10,
+    "stockQuantity": 40,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/PremiumLaptop.png",
+    "majorCodes": [
+      "MECH",
+      "CIVIL",
+      "ARCH"
+    ],
+    "tags": [
+      "ruler",
+      "drafting"
+    ]
+  },
+  {
+    "sku": "T-SQUARE-001-V4",
+    "slug": "thuoc-chu-t-60cm-v4",
+    "name": "Thước chữ T 60cm vẽ kỹ thuật (Ver 4)",
+    "categorySlug": "study-drafting",
+    "shortDescription": "Chất liệu nhựa mica acrylic siêu bền.",
+    "price": 10,
+    "stockQuantity": 40,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/PremiumLaptop.png",
+    "majorCodes": [
+      "MECH",
+      "CIVIL",
+      "ARCH"
+    ],
+    "tags": [
+      "ruler",
+      "drafting"
+    ]
   },
   {
     "sku": "DRAFTING-BOARD-001",
@@ -208,13 +1225,83 @@
     "name": "Bảng vẽ kỹ thuật A3 có thước trượt",
     "categorySlug": "study-drafting",
     "shortDescription": "Bảng vẽ A3 chất lượng cao, tích hợp thước trượt tiện lợi.",
-    "price": 35.0,
+    "price": 35,
     "stockQuantity": 20,
     "condition": "new",
     "isFeatured": false,
     "image": "/PremiumLaptop.png",
-    "majorCodes": ["ARCH", "CIVIL", "MECH"],
-    "tags": ["board", "drafting"]
+    "majorCodes": [
+      "ARCH",
+      "CIVIL",
+      "MECH"
+    ],
+    "tags": [
+      "board",
+      "drafting"
+    ]
+  },
+  {
+    "sku": "DRAFTING-BOARD-001-V2",
+    "slug": "bang-ve-ky-thuat-a3-v2",
+    "name": "Bảng vẽ kỹ thuật A3 có thước trượt (Ver 2)",
+    "categorySlug": "study-drafting",
+    "shortDescription": "Bảng vẽ A3 chất lượng cao, tích hợp thước trượt tiện lợi.",
+    "price": 35,
+    "stockQuantity": 20,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/PremiumLaptop.png",
+    "majorCodes": [
+      "ARCH",
+      "CIVIL",
+      "MECH"
+    ],
+    "tags": [
+      "board",
+      "drafting"
+    ]
+  },
+  {
+    "sku": "DRAFTING-BOARD-001-V3",
+    "slug": "bang-ve-ky-thuat-a3-v3",
+    "name": "Bảng vẽ kỹ thuật A3 có thước trượt (Ver 3)",
+    "categorySlug": "study-drafting",
+    "shortDescription": "Bảng vẽ A3 chất lượng cao, tích hợp thước trượt tiện lợi.",
+    "price": 35,
+    "stockQuantity": 20,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/PremiumLaptop.png",
+    "majorCodes": [
+      "ARCH",
+      "CIVIL",
+      "MECH"
+    ],
+    "tags": [
+      "board",
+      "drafting"
+    ]
+  },
+  {
+    "sku": "DRAFTING-BOARD-001-V4",
+    "slug": "bang-ve-ky-thuat-a3-v4",
+    "name": "Bảng vẽ kỹ thuật A3 có thước trượt (Ver 4)",
+    "categorySlug": "study-drafting",
+    "shortDescription": "Bảng vẽ A3 chất lượng cao, tích hợp thước trượt tiện lợi.",
+    "price": 35,
+    "stockQuantity": 20,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/PremiumLaptop.png",
+    "majorCodes": [
+      "ARCH",
+      "CIVIL",
+      "MECH"
+    ],
+    "tags": [
+      "board",
+      "drafting"
+    ]
   },
   {
     "sku": "BOOK-WEB-IT-001",
@@ -222,13 +1309,75 @@
     "name": "Giáo trình Lập trình Web - Khoa CNTT",
     "categorySlug": "study-materials",
     "shortDescription": "Tài liệu học tập chính thức môn Lập trình Web.",
-    "price": 12.0,
+    "price": 12,
     "stockQuantity": 100,
     "condition": "new",
     "isFeatured": false,
     "image": "/STayUteEngineering.png",
-    "majorCodes": ["IT"],
-    "tags": ["book", "web-development"]
+    "majorCodes": [
+      "IT"
+    ],
+    "tags": [
+      "book",
+      "web-development"
+    ]
+  },
+  {
+    "sku": "BOOK-WEB-IT-001-V2",
+    "slug": "giao-trinh-lap-trinh-web-v2",
+    "name": "Giáo trình Lập trình Web - Khoa CNTT (Ver 2)",
+    "categorySlug": "study-materials",
+    "shortDescription": "Tài liệu học tập chính thức môn Lập trình Web.",
+    "price": 12,
+    "stockQuantity": 100,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/STayUteEngineering.png",
+    "majorCodes": [
+      "IT"
+    ],
+    "tags": [
+      "book",
+      "web-development"
+    ]
+  },
+  {
+    "sku": "BOOK-WEB-IT-001-V3",
+    "slug": "giao-trinh-lap-trinh-web-v3",
+    "name": "Giáo trình Lập trình Web - Khoa CNTT (Ver 3)",
+    "categorySlug": "study-materials",
+    "shortDescription": "Tài liệu học tập chính thức môn Lập trình Web.",
+    "price": 12,
+    "stockQuantity": 100,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/STayUteEngineering.png",
+    "majorCodes": [
+      "IT"
+    ],
+    "tags": [
+      "book",
+      "web-development"
+    ]
+  },
+  {
+    "sku": "BOOK-WEB-IT-001-V4",
+    "slug": "giao-trinh-lap-trinh-web-v4",
+    "name": "Giáo trình Lập trình Web - Khoa CNTT (Ver 4)",
+    "categorySlug": "study-materials",
+    "shortDescription": "Tài liệu học tập chính thức môn Lập trình Web.",
+    "price": 12,
+    "stockQuantity": 100,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/STayUteEngineering.png",
+    "majorCodes": [
+      "IT"
+    ],
+    "tags": [
+      "book",
+      "web-development"
+    ]
   },
   {
     "sku": "BOOK-DUNGSAI-001",
@@ -236,13 +1385,75 @@
     "name": "Giáo trình Dung sai lắp ghép & Kỹ thuật đo",
     "categorySlug": "study-materials",
     "shortDescription": "Giáo trình kỹ thuật đo và tiêu chuẩn hóa cơ khí.",
-    "price": 14.0,
+    "price": 14,
     "stockQuantity": 70,
     "condition": "new",
     "isFeatured": false,
     "image": "/STayUteEngineering.png",
-    "majorCodes": ["MECH"],
-    "tags": ["book", "mechanical"]
+    "majorCodes": [
+      "MECH"
+    ],
+    "tags": [
+      "book",
+      "mechanical"
+    ]
+  },
+  {
+    "sku": "BOOK-DUNGSAI-001-V2",
+    "slug": "giao-trinh-dung-sai-lap-ghep-v2",
+    "name": "Giáo trình Dung sai lắp ghép & Kỹ thuật đo (Ver 2)",
+    "categorySlug": "study-materials",
+    "shortDescription": "Giáo trình kỹ thuật đo và tiêu chuẩn hóa cơ khí.",
+    "price": 14,
+    "stockQuantity": 70,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/STayUteEngineering.png",
+    "majorCodes": [
+      "MECH"
+    ],
+    "tags": [
+      "book",
+      "mechanical"
+    ]
+  },
+  {
+    "sku": "BOOK-DUNGSAI-001-V3",
+    "slug": "giao-trinh-dung-sai-lap-ghep-v3",
+    "name": "Giáo trình Dung sai lắp ghép & Kỹ thuật đo (Ver 3)",
+    "categorySlug": "study-materials",
+    "shortDescription": "Giáo trình kỹ thuật đo và tiêu chuẩn hóa cơ khí.",
+    "price": 14,
+    "stockQuantity": 70,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/STayUteEngineering.png",
+    "majorCodes": [
+      "MECH"
+    ],
+    "tags": [
+      "book",
+      "mechanical"
+    ]
+  },
+  {
+    "sku": "BOOK-DUNGSAI-001-V4",
+    "slug": "giao-trinh-dung-sai-lap-ghep-v4",
+    "name": "Giáo trình Dung sai lắp ghép & Kỹ thuật đo (Ver 4)",
+    "categorySlug": "study-materials",
+    "shortDescription": "Giáo trình kỹ thuật đo và tiêu chuẩn hóa cơ khí.",
+    "price": 14,
+    "stockQuantity": 70,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/STayUteEngineering.png",
+    "majorCodes": [
+      "MECH"
+    ],
+    "tags": [
+      "book",
+      "mechanical"
+    ]
   },
   {
     "sku": "MOUSEPAD-UTE-001",
@@ -250,13 +1461,79 @@
     "name": "Lót chuột UTE IT Deskmat (80x30cm)",
     "categorySlug": "tech-peripherals",
     "shortDescription": "Đế cao su chống trượt, bề mặt di chuột mượt mà.",
-    "price": 18.0,
+    "price": 18,
     "stockQuantity": 100,
     "condition": "new",
     "isFeatured": true,
     "image": "/ChutGamingRgb.png",
-    "majorCodes": ["IT", "GENERAL"],
-    "tags": ["mousepad", "deskmat"]
+    "majorCodes": [
+      "IT",
+      "GENERAL"
+    ],
+    "tags": [
+      "mousepad",
+      "deskmat"
+    ]
+  },
+  {
+    "sku": "MOUSEPAD-UTE-001-V2",
+    "slug": "lot-chuot-ute-it-deskmat-v2",
+    "name": "Lót chuột UTE IT Deskmat (80x30cm) (Ver 2)",
+    "categorySlug": "tech-peripherals",
+    "shortDescription": "Đế cao su chống trượt, bề mặt di chuột mượt mà.",
+    "price": 18,
+    "stockQuantity": 100,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/ChutGamingRgb.png",
+    "majorCodes": [
+      "IT",
+      "GENERAL"
+    ],
+    "tags": [
+      "mousepad",
+      "deskmat"
+    ]
+  },
+  {
+    "sku": "MOUSEPAD-UTE-001-V3",
+    "slug": "lot-chuot-ute-it-deskmat-v3",
+    "name": "Lót chuột UTE IT Deskmat (80x30cm) (Ver 3)",
+    "categorySlug": "tech-peripherals",
+    "shortDescription": "Đế cao su chống trượt, bề mặt di chuột mượt mà.",
+    "price": 18,
+    "stockQuantity": 100,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/ChutGamingRgb.png",
+    "majorCodes": [
+      "IT",
+      "GENERAL"
+    ],
+    "tags": [
+      "mousepad",
+      "deskmat"
+    ]
+  },
+  {
+    "sku": "MOUSEPAD-UTE-001-V4",
+    "slug": "lot-chuot-ute-it-deskmat-v4",
+    "name": "Lót chuột UTE IT Deskmat (80x30cm) (Ver 4)",
+    "categorySlug": "tech-peripherals",
+    "shortDescription": "Đế cao su chống trượt, bề mặt di chuột mượt mà.",
+    "price": 18,
+    "stockQuantity": 100,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/ChutGamingRgb.png",
+    "majorCodes": [
+      "IT",
+      "GENERAL"
+    ],
+    "tags": [
+      "mousepad",
+      "deskmat"
+    ]
   },
   {
     "sku": "USB-KINGSTON-32",
@@ -264,13 +1541,83 @@
     "name": "USB 3.0 Kingston DataTraveler 32GB",
     "categorySlug": "tech-peripherals",
     "shortDescription": "Truyền dữ liệu tốc độ cao, thiết kế vỏ kim loại.",
-    "price": 9.0,
+    "price": 9,
     "stockQuantity": 80,
     "condition": "new",
     "isFeatured": false,
     "image": "/BnPhmCBluetooth.png",
-    "majorCodes": ["GENERAL", "IT"],
-    "tags": ["usb", "kingston", "storage"]
+    "majorCodes": [
+      "GENERAL",
+      "IT"
+    ],
+    "tags": [
+      "usb",
+      "kingston",
+      "storage"
+    ]
+  },
+  {
+    "sku": "USB-KINGSTON-32-V2",
+    "slug": "usb-kingston-datatraveler-32gb-v2",
+    "name": "USB 3.0 Kingston DataTraveler 32GB (Ver 2)",
+    "categorySlug": "tech-peripherals",
+    "shortDescription": "Truyền dữ liệu tốc độ cao, thiết kế vỏ kim loại.",
+    "price": 9,
+    "stockQuantity": 80,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/BnPhmCBluetooth.png",
+    "majorCodes": [
+      "GENERAL",
+      "IT"
+    ],
+    "tags": [
+      "usb",
+      "kingston",
+      "storage"
+    ]
+  },
+  {
+    "sku": "USB-KINGSTON-32-V3",
+    "slug": "usb-kingston-datatraveler-32gb-v3",
+    "name": "USB 3.0 Kingston DataTraveler 32GB (Ver 3)",
+    "categorySlug": "tech-peripherals",
+    "shortDescription": "Truyền dữ liệu tốc độ cao, thiết kế vỏ kim loại.",
+    "price": 9,
+    "stockQuantity": 80,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/BnPhmCBluetooth.png",
+    "majorCodes": [
+      "GENERAL",
+      "IT"
+    ],
+    "tags": [
+      "usb",
+      "kingston",
+      "storage"
+    ]
+  },
+  {
+    "sku": "USB-KINGSTON-32-V4",
+    "slug": "usb-kingston-datatraveler-32gb-v4",
+    "name": "USB 3.0 Kingston DataTraveler 32GB (Ver 4)",
+    "categorySlug": "tech-peripherals",
+    "shortDescription": "Truyền dữ liệu tốc độ cao, thiết kế vỏ kim loại.",
+    "price": 9,
+    "stockQuantity": 80,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/BnPhmCBluetooth.png",
+    "majorCodes": [
+      "GENERAL",
+      "IT"
+    ],
+    "tags": [
+      "usb",
+      "kingston",
+      "storage"
+    ]
   },
   {
     "sku": "RAM-DDR4-8G",
@@ -278,13 +1625,83 @@
     "name": "RAM Laptop DDR4 Crucial 8GB 3200MHz",
     "categorySlug": "tech-upgrades",
     "shortDescription": "Nâng cấp RAM laptop giúp chạy đa nhiệm mượt mà.",
-    "price": 30.0,
+    "price": 30,
     "stockQuantity": 30,
     "condition": "new",
     "isFeatured": false,
     "image": "/PremiumLaptop.png",
-    "majorCodes": ["IT", "GENERAL"],
-    "tags": ["ram", "upgrade", "crucial"]
+    "majorCodes": [
+      "IT",
+      "GENERAL"
+    ],
+    "tags": [
+      "ram",
+      "upgrade",
+      "crucial"
+    ]
+  },
+  {
+    "sku": "RAM-DDR4-8G-V2",
+    "slug": "ram-laptop-ddr4-crucial-8gb-v2",
+    "name": "RAM Laptop DDR4 Crucial 8GB 3200MHz (Ver 2)",
+    "categorySlug": "tech-upgrades",
+    "shortDescription": "Nâng cấp RAM laptop giúp chạy đa nhiệm mượt mà.",
+    "price": 30,
+    "stockQuantity": 30,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/PremiumLaptop.png",
+    "majorCodes": [
+      "IT",
+      "GENERAL"
+    ],
+    "tags": [
+      "ram",
+      "upgrade",
+      "crucial"
+    ]
+  },
+  {
+    "sku": "RAM-DDR4-8G-V3",
+    "slug": "ram-laptop-ddr4-crucial-8gb-v3",
+    "name": "RAM Laptop DDR4 Crucial 8GB 3200MHz (Ver 3)",
+    "categorySlug": "tech-upgrades",
+    "shortDescription": "Nâng cấp RAM laptop giúp chạy đa nhiệm mượt mà.",
+    "price": 30,
+    "stockQuantity": 30,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/PremiumLaptop.png",
+    "majorCodes": [
+      "IT",
+      "GENERAL"
+    ],
+    "tags": [
+      "ram",
+      "upgrade",
+      "crucial"
+    ]
+  },
+  {
+    "sku": "RAM-DDR4-8G-V4",
+    "slug": "ram-laptop-ddr4-crucial-8gb-v4",
+    "name": "RAM Laptop DDR4 Crucial 8GB 3200MHz (Ver 4)",
+    "categorySlug": "tech-upgrades",
+    "shortDescription": "Nâng cấp RAM laptop giúp chạy đa nhiệm mượt mà.",
+    "price": 30,
+    "stockQuantity": 30,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/PremiumLaptop.png",
+    "majorCodes": [
+      "IT",
+      "GENERAL"
+    ],
+    "tags": [
+      "ram",
+      "upgrade",
+      "crucial"
+    ]
   },
   {
     "sku": "SSD-SATA-500",
@@ -292,13 +1709,83 @@
     "name": "SSD Samsung 870 EVO SATA III 500GB",
     "categorySlug": "tech-upgrades",
     "shortDescription": "Tăng tốc độ khởi động máy tính gấp 5 lần HDD.",
-    "price": 65.0,
+    "price": 65,
     "stockQuantity": 15,
     "condition": "new",
     "isFeatured": false,
     "image": "/PremiumLaptop.png",
-    "majorCodes": ["GENERAL", "IT"],
-    "tags": ["ssd", "samsung", "upgrade"]
+    "majorCodes": [
+      "GENERAL",
+      "IT"
+    ],
+    "tags": [
+      "ssd",
+      "samsung",
+      "upgrade"
+    ]
+  },
+  {
+    "sku": "SSD-SATA-500-V2",
+    "slug": "ssd-samsung-870-evo-500gb-v2",
+    "name": "SSD Samsung 870 EVO SATA III 500GB (Ver 2)",
+    "categorySlug": "tech-upgrades",
+    "shortDescription": "Tăng tốc độ khởi động máy tính gấp 5 lần HDD.",
+    "price": 65,
+    "stockQuantity": 15,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/PremiumLaptop.png",
+    "majorCodes": [
+      "GENERAL",
+      "IT"
+    ],
+    "tags": [
+      "ssd",
+      "samsung",
+      "upgrade"
+    ]
+  },
+  {
+    "sku": "SSD-SATA-500-V3",
+    "slug": "ssd-samsung-870-evo-500gb-v3",
+    "name": "SSD Samsung 870 EVO SATA III 500GB (Ver 3)",
+    "categorySlug": "tech-upgrades",
+    "shortDescription": "Tăng tốc độ khởi động máy tính gấp 5 lần HDD.",
+    "price": 65,
+    "stockQuantity": 15,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/PremiumLaptop.png",
+    "majorCodes": [
+      "GENERAL",
+      "IT"
+    ],
+    "tags": [
+      "ssd",
+      "samsung",
+      "upgrade"
+    ]
+  },
+  {
+    "sku": "SSD-SATA-500-V4",
+    "slug": "ssd-samsung-870-evo-500gb-v4",
+    "name": "SSD Samsung 870 EVO SATA III 500GB (Ver 4)",
+    "categorySlug": "tech-upgrades",
+    "shortDescription": "Tăng tốc độ khởi động máy tính gấp 5 lần HDD.",
+    "price": 65,
+    "stockQuantity": 15,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/PremiumLaptop.png",
+    "majorCodes": [
+      "GENERAL",
+      "IT"
+    ],
+    "tags": [
+      "ssd",
+      "samsung",
+      "upgrade"
+    ]
   },
   {
     "sku": "STICKER-DEV-001",
@@ -306,13 +1793,79 @@
     "name": "Bộ 50 Sticker chống nước cho Coder",
     "categorySlug": "tech-stickers",
     "shortDescription": "Dán laptop trang trí lập trình viên siêu cá tính.",
-    "price": 3.0,
+    "price": 3,
     "stockQuantity": 300,
     "condition": "new",
     "isFeatured": false,
     "image": "/ChutGamingRgb.png",
-    "majorCodes": ["IT", "GENERAL"],
-    "tags": ["sticker", "developer"]
+    "majorCodes": [
+      "IT",
+      "GENERAL"
+    ],
+    "tags": [
+      "sticker",
+      "developer"
+    ]
+  },
+  {
+    "sku": "STICKER-DEV-001-V2",
+    "slug": "bo-50-sticker-coder-v2",
+    "name": "Bộ 50 Sticker chống nước cho Coder (Ver 2)",
+    "categorySlug": "tech-stickers",
+    "shortDescription": "Dán laptop trang trí lập trình viên siêu cá tính.",
+    "price": 3,
+    "stockQuantity": 300,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/ChutGamingRgb.png",
+    "majorCodes": [
+      "IT",
+      "GENERAL"
+    ],
+    "tags": [
+      "sticker",
+      "developer"
+    ]
+  },
+  {
+    "sku": "STICKER-DEV-001-V3",
+    "slug": "bo-50-sticker-coder-v3",
+    "name": "Bộ 50 Sticker chống nước cho Coder (Ver 3)",
+    "categorySlug": "tech-stickers",
+    "shortDescription": "Dán laptop trang trí lập trình viên siêu cá tính.",
+    "price": 3,
+    "stockQuantity": 300,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/ChutGamingRgb.png",
+    "majorCodes": [
+      "IT",
+      "GENERAL"
+    ],
+    "tags": [
+      "sticker",
+      "developer"
+    ]
+  },
+  {
+    "sku": "STICKER-DEV-001-V4",
+    "slug": "bo-50-sticker-coder-v4",
+    "name": "Bộ 50 Sticker chống nước cho Coder (Ver 4)",
+    "categorySlug": "tech-stickers",
+    "shortDescription": "Dán laptop trang trí lập trình viên siêu cá tính.",
+    "price": 3,
+    "stockQuantity": 300,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/ChutGamingRgb.png",
+    "majorCodes": [
+      "IT",
+      "GENERAL"
+    ],
+    "tags": [
+      "sticker",
+      "developer"
+    ]
   },
   {
     "sku": "UTE-LANYARD-001",
@@ -320,13 +1873,75 @@
     "name": "Dây đeo thẻ sinh viên UTE cao cấp",
     "categorySlug": "merchandise-accessories",
     "shortDescription": "Chất liệu lụa in chuyển nhiệt logo UTE sắc nét.",
-    "price": 5.0,
+    "price": 5,
     "stockQuantity": 500,
     "condition": "new",
     "isFeatured": false,
     "image": "/STayUteEngineering.png",
-    "majorCodes": ["GENERAL"],
-    "tags": ["lanyard", "merchandise"]
+    "majorCodes": [
+      "GENERAL"
+    ],
+    "tags": [
+      "lanyard",
+      "merchandise"
+    ]
+  },
+  {
+    "sku": "UTE-LANYARD-001-V2",
+    "slug": "day-deo-the-sinh-vien-ute-v2",
+    "name": "Dây đeo thẻ sinh viên UTE cao cấp (Ver 2)",
+    "categorySlug": "merchandise-accessories",
+    "shortDescription": "Chất liệu lụa in chuyển nhiệt logo UTE sắc nét.",
+    "price": 5,
+    "stockQuantity": 500,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/STayUteEngineering.png",
+    "majorCodes": [
+      "GENERAL"
+    ],
+    "tags": [
+      "lanyard",
+      "merchandise"
+    ]
+  },
+  {
+    "sku": "UTE-LANYARD-001-V3",
+    "slug": "day-deo-the-sinh-vien-ute-v3",
+    "name": "Dây đeo thẻ sinh viên UTE cao cấp (Ver 3)",
+    "categorySlug": "merchandise-accessories",
+    "shortDescription": "Chất liệu lụa in chuyển nhiệt logo UTE sắc nét.",
+    "price": 5,
+    "stockQuantity": 500,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/STayUteEngineering.png",
+    "majorCodes": [
+      "GENERAL"
+    ],
+    "tags": [
+      "lanyard",
+      "merchandise"
+    ]
+  },
+  {
+    "sku": "UTE-LANYARD-001-V4",
+    "slug": "day-deo-the-sinh-vien-ute-v4",
+    "name": "Dây đeo thẻ sinh viên UTE cao cấp (Ver 4)",
+    "categorySlug": "merchandise-accessories",
+    "shortDescription": "Chất liệu lụa in chuyển nhiệt logo UTE sắc nét.",
+    "price": 5,
+    "stockQuantity": 500,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/STayUteEngineering.png",
+    "majorCodes": [
+      "GENERAL"
+    ],
+    "tags": [
+      "lanyard",
+      "merchandise"
+    ]
   },
   {
     "sku": "MINI-FAN-001",
@@ -334,13 +1949,75 @@
     "name": "Quạt mini để bàn cổng USB",
     "categorySlug": "life-dorm",
     "shortDescription": "Quạt lồng sắt xoay 360 độ cực mát, cắm USB tiện lợi.",
-    "price": 12.0,
+    "price": 12,
     "stockQuantity": 60,
     "condition": "new",
     "isFeatured": false,
     "image": "/NHcChngCnLed.png",
-    "majorCodes": ["GENERAL"],
-    "tags": ["fan", "dorm"]
+    "majorCodes": [
+      "GENERAL"
+    ],
+    "tags": [
+      "fan",
+      "dorm"
+    ]
+  },
+  {
+    "sku": "MINI-FAN-001-V2",
+    "slug": "quat-mini-de-ban-usb-v2",
+    "name": "Quạt mini để bàn cổng USB (Ver 2)",
+    "categorySlug": "life-dorm",
+    "shortDescription": "Quạt lồng sắt xoay 360 độ cực mát, cắm USB tiện lợi.",
+    "price": 12,
+    "stockQuantity": 60,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/NHcChngCnLed.png",
+    "majorCodes": [
+      "GENERAL"
+    ],
+    "tags": [
+      "fan",
+      "dorm"
+    ]
+  },
+  {
+    "sku": "MINI-FAN-001-V3",
+    "slug": "quat-mini-de-ban-usb-v3",
+    "name": "Quạt mini để bàn cổng USB (Ver 3)",
+    "categorySlug": "life-dorm",
+    "shortDescription": "Quạt lồng sắt xoay 360 độ cực mát, cắm USB tiện lợi.",
+    "price": 12,
+    "stockQuantity": 60,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/NHcChngCnLed.png",
+    "majorCodes": [
+      "GENERAL"
+    ],
+    "tags": [
+      "fan",
+      "dorm"
+    ]
+  },
+  {
+    "sku": "MINI-FAN-001-V4",
+    "slug": "quat-mini-de-ban-usb-v4",
+    "name": "Quạt mini để bàn cổng USB (Ver 4)",
+    "categorySlug": "life-dorm",
+    "shortDescription": "Quạt lồng sắt xoay 360 độ cực mát, cắm USB tiện lợi.",
+    "price": 12,
+    "stockQuantity": 60,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/NHcChngCnLed.png",
+    "majorCodes": [
+      "GENERAL"
+    ],
+    "tags": [
+      "fan",
+      "dorm"
+    ]
   },
   {
     "sku": "PHONE-HOLDER-001",
@@ -348,13 +2025,75 @@
     "name": "Giá đỡ kẹp điện thoại & máy tính bảng đầu giường",
     "categorySlug": "life-dorm",
     "shortDescription": "Thân uốn linh hoạt, xoay 360 độ xem phim giải trí rảnh tay.",
-    "price": 7.0,
+    "price": 7,
     "stockQuantity": 45,
     "condition": "new",
     "isFeatured": false,
     "image": "/NHcChngCnLed.png",
-    "majorCodes": ["GENERAL"],
-    "tags": ["holder", "dorm"]
+    "majorCodes": [
+      "GENERAL"
+    ],
+    "tags": [
+      "holder",
+      "dorm"
+    ]
+  },
+  {
+    "sku": "PHONE-HOLDER-001-V2",
+    "slug": "gia-do-kep-dien-thoai-v2",
+    "name": "Giá đỡ kẹp điện thoại & máy tính bảng đầu giường (Ver 2)",
+    "categorySlug": "life-dorm",
+    "shortDescription": "Thân uốn linh hoạt, xoay 360 độ xem phim giải trí rảnh tay.",
+    "price": 7,
+    "stockQuantity": 45,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/NHcChngCnLed.png",
+    "majorCodes": [
+      "GENERAL"
+    ],
+    "tags": [
+      "holder",
+      "dorm"
+    ]
+  },
+  {
+    "sku": "PHONE-HOLDER-001-V3",
+    "slug": "gia-do-kep-dien-thoai-v3",
+    "name": "Giá đỡ kẹp điện thoại & máy tính bảng đầu giường (Ver 3)",
+    "categorySlug": "life-dorm",
+    "shortDescription": "Thân uốn linh hoạt, xoay 360 độ xem phim giải trí rảnh tay.",
+    "price": 7,
+    "stockQuantity": 45,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/NHcChngCnLed.png",
+    "majorCodes": [
+      "GENERAL"
+    ],
+    "tags": [
+      "holder",
+      "dorm"
+    ]
+  },
+  {
+    "sku": "PHONE-HOLDER-001-V4",
+    "slug": "gia-do-kep-dien-thoai-v4",
+    "name": "Giá đỡ kẹp điện thoại & máy tính bảng đầu giường (Ver 4)",
+    "categorySlug": "life-dorm",
+    "shortDescription": "Thân uốn linh hoạt, xoay 360 độ xem phim giải trí rảnh tay.",
+    "price": 7,
+    "stockQuantity": 45,
+    "condition": "new",
+    "isFeatured": false,
+    "image": "/NHcChngCnLed.png",
+    "majorCodes": [
+      "GENERAL"
+    ],
+    "tags": [
+      "holder",
+      "dorm"
+    ]
   },
   {
     "sku": "USED-BOOK-C",
@@ -362,13 +2101,86 @@
     "name": "Sách Kỹ thuật lập trình C (Đã qua sử dụng)",
     "categorySlug": "second-hand-consignment",
     "shortDescription": "Sách còn mới 85%, không rách nát.",
-    "price": 4.0,
+    "price": 4,
     "stockQuantity": 2,
     "condition": "used",
     "productType": "consignment",
     "isFeatured": false,
     "image": "/STayUteEngineering.png",
-    "majorCodes": ["GENERAL", "IT"],
-    "tags": ["second-hand", "book", "programming"]
+    "majorCodes": [
+      "GENERAL",
+      "IT"
+    ],
+    "tags": [
+      "second-hand",
+      "book",
+      "programming"
+    ]
+  },
+  {
+    "sku": "USED-BOOK-C-V2",
+    "slug": "sach-ky-thuat-lap-trinh-c-cu-v2",
+    "name": "Sách Kỹ thuật lập trình C (Đã qua sử dụng) (Ver 2)",
+    "categorySlug": "second-hand-consignment",
+    "shortDescription": "Sách còn mới 85%, không rách nát.",
+    "price": 4,
+    "stockQuantity": 2,
+    "condition": "used",
+    "productType": "consignment",
+    "isFeatured": false,
+    "image": "/STayUteEngineering.png",
+    "majorCodes": [
+      "GENERAL",
+      "IT"
+    ],
+    "tags": [
+      "second-hand",
+      "book",
+      "programming"
+    ]
+  },
+  {
+    "sku": "USED-BOOK-C-V3",
+    "slug": "sach-ky-thuat-lap-trinh-c-cu-v3",
+    "name": "Sách Kỹ thuật lập trình C (Đã qua sử dụng) (Ver 3)",
+    "categorySlug": "second-hand-consignment",
+    "shortDescription": "Sách còn mới 85%, không rách nát.",
+    "price": 4,
+    "stockQuantity": 2,
+    "condition": "used",
+    "productType": "consignment",
+    "isFeatured": false,
+    "image": "/STayUteEngineering.png",
+    "majorCodes": [
+      "GENERAL",
+      "IT"
+    ],
+    "tags": [
+      "second-hand",
+      "book",
+      "programming"
+    ]
+  },
+  {
+    "sku": "USED-BOOK-C-V4",
+    "slug": "sach-ky-thuat-lap-trinh-c-cu-v4",
+    "name": "Sách Kỹ thuật lập trình C (Đã qua sử dụng) (Ver 4)",
+    "categorySlug": "second-hand-consignment",
+    "shortDescription": "Sách còn mới 85%, không rách nát.",
+    "price": 4,
+    "stockQuantity": 2,
+    "condition": "used",
+    "productType": "consignment",
+    "isFeatured": false,
+    "image": "/STayUteEngineering.png",
+    "majorCodes": [
+      "GENERAL",
+      "IT"
+    ],
+    "tags": [
+      "second-hand",
+      "book",
+      "programming"
+    ]
   }
 ]

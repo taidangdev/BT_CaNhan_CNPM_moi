@@ -42,6 +42,29 @@ export default function CheckoutPage() {
     const [usePoints, setUsePoints] = useState(false);
     const [pointsAvailable, setPointsAvailable] = useState(0);
 
+    const [addresses, setAddresses] = useState<any[]>([]);
+    const [selectedAddressId, setSelectedAddressId] = useState<number | 'new' | ''>('');
+
+    // Fetch user addresses on mount
+    useEffect(() => {
+        if (user) {
+            axiosInstance.get('/users/addresses')
+                .then((res: any) => {
+                    const addrs = res.data?.addresses || [];
+                    setAddresses(addrs);
+                    const defaultAddr = addrs.find((a: any) => a.isDefault);
+                    if (defaultAddr) {
+                        setSelectedAddressId(defaultAddr.id);
+                    } else if (addrs.length > 0) {
+                        setSelectedAddressId(addrs[0].id);
+                    } else {
+                        setSelectedAddressId('new');
+                    }
+                })
+                .catch(e => console.error(e));
+        }
+    }, [user]);
+
     useEffect(() => {
         if (user) {
             axiosInstance.get('/users/me')
@@ -129,22 +152,34 @@ export default function CheckoutPage() {
         if (isSubmitting) return;
 
         // Validation
-        if (!formData.recipientName || !formData.phoneNumber || !formData.streetAddress || !formData.ward || !formData.district || !formData.city) {
-            setSubmitError('Vui lòng nhập đầy đủ thông tin giao hàng');
+        if (selectedAddressId === 'new') {
+            if (!formData.recipientName || !formData.phoneNumber || !formData.streetAddress || !formData.ward || !formData.district || !formData.city) {
+                setSubmitError('Vui lòng nhập đầy đủ thông tin giao hàng');
+                return;
+            }
+        } else if (!selectedAddressId) {
+            setSubmitError('Vui lòng chọn địa chỉ nhận hàng');
             return;
         }
 
         setIsSubmitting(true);
         setSubmitError(null);
 
+        const payload: any = {
+            note,
+            paymentMethod,
+            promoCode: appliedPromo?.code || undefined,
+            usePoints
+        };
+
+        if (selectedAddressId === 'new') {
+            payload.addressData = formData;
+        } else {
+            payload.shippingAddressId = selectedAddressId;
+        }
+
         try {
-            const response = await axiosInstance.post<{ data: { id: number } }>('/orders', {
-                addressData: formData,
-                note,
-                paymentMethod,
-                promoCode: appliedPromo?.code || undefined,
-                usePoints
-            });
+            const response = await axiosInstance.post<{ data: { id: number } }>('/orders', payload);
 
             // Clean cart in Redux state
             dispatch(resetCart());
@@ -186,84 +221,150 @@ export default function CheckoutPage() {
                     <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
                         <h2 className="text-lg font-bold text-gray-900 border-b border-gray-100 pb-4 mb-6 flex items-center gap-2">
                             <span className="material-symbols-outlined text-blue-600">local_shipping</span>
-                            Thông tin nhận hàng
+                            Địa chỉ giao hàng
                         </h2>
 
-                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                            <div className="sm:col-span-2">
-                                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Họ và tên người nhận *</label>
-                                <input
-                                    type="text"
-                                    name="recipientName"
-                                    value={formData.recipientName}
-                                    onChange={handleInputChange}
-                                    required
-                                    className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:border-primary focus:outline-none transition"
-                                />
-                            </div>
+                        {addresses.length > 0 && (
+                            <div className="space-y-3 mb-6">
+                                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Chọn địa chỉ đã lưu</label>
+                                {addresses.map((addr) => (
+                                    <label
+                                        key={addr.id}
+                                        className={`flex items-start gap-4 border rounded-xl p-4 cursor-pointer transition select-none ${
+                                            selectedAddressId === addr.id
+                                                ? 'border-blue-500 bg-blue-50/50'
+                                                : 'border-gray-100 hover:bg-gray-50'
+                                        }`}
+                                    >
+                                        <input
+                                            type="radio"
+                                            name="selectedAddressId"
+                                            checked={selectedAddressId === addr.id}
+                                            onChange={() => setSelectedAddressId(addr.id)}
+                                            className="h-4.5 w-4.5 text-blue-600 border-gray-300 focus:ring-blue-500 mt-1"
+                                        />
+                                        <div className="flex-1 text-sm">
+                                            <p className="font-bold text-gray-950 flex items-center gap-2">
+                                                {addr.recipientName}
+                                                <span className="rounded bg-gray-100 px-2 py-0.5 text-[10px] font-bold text-gray-600">
+                                                    {addr.label === 'Home' ? 'Nhà riêng' : addr.label === 'Office' ? 'Văn phòng' : addr.label === 'Dorm' ? 'Ký túc xá' : addr.label || 'Nhà riêng'}
+                                                </span>
+                                                {addr.isDefault && (
+                                                    <span className="rounded bg-green-100 px-2 py-0.5 text-[10px] font-bold text-green-700 uppercase">
+                                                        Mặc định
+                                                    </span>
+                                                )}
+                                            </p>
+                                            <p className="text-gray-700 mt-1 font-semibold">SĐT: {addr.phone}</p>
+                                            <p className="text-gray-500 mt-0.5 font-medium">
+                                                {addr.line1}
+                                                {addr.line2 && `, ${addr.line2}`}
+                                                {`, Phường ${addr.ward}`}
+                                                {`, Quận ${addr.district}`}
+                                                {`, ${addr.city}`}
+                                            </p>
+                                        </div>
+                                    </label>
+                                ))}
 
-                            <div>
-                                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Số điện thoại *</label>
-                                <input
-                                    type="tel"
-                                    name="phoneNumber"
-                                    value={formData.phoneNumber}
-                                    onChange={handleInputChange}
-                                    required
-                                    className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:border-primary focus:outline-none transition"
-                                />
+                                <label
+                                    className={`flex items-center gap-4 border rounded-xl p-4 cursor-pointer transition select-none ${
+                                        selectedAddressId === 'new'
+                                            ? 'border-blue-500 bg-blue-50/50'
+                                            : 'border-gray-100 hover:bg-gray-50'
+                                    }`}
+                                >
+                                    <input
+                                        type="radio"
+                                        name="selectedAddressId"
+                                        checked={selectedAddressId === 'new'}
+                                        onChange={() => setSelectedAddressId('new')}
+                                        className="h-4.5 w-4.5 text-blue-600 border-gray-300 focus:ring-blue-500"
+                                    />
+                                    <div className="flex-1">
+                                        <p className="text-sm font-bold text-gray-900">Nhập địa chỉ giao hàng mới</p>
+                                    </div>
+                                </label>
                             </div>
+                        )}
 
-                            <div>
-                                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Số nhà, Tên đường *</label>
-                                <input
-                                    type="text"
-                                    name="streetAddress"
-                                    value={formData.streetAddress}
-                                    onChange={handleInputChange}
-                                    required
-                                    className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:border-primary focus:outline-none transition"
-                                    placeholder="Ví dụ: 1 Võ Văn Ngân"
-                                />
-                            </div>
+                        {selectedAddressId === 'new' && (
+                            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 border-t border-gray-100 pt-6">
+                                <div className="sm:col-span-2">
+                                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Họ và tên người nhận *</label>
+                                    <input
+                                        type="text"
+                                        name="recipientName"
+                                        value={formData.recipientName}
+                                        onChange={handleInputChange}
+                                        required
+                                        className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:border-primary focus:outline-none transition"
+                                    />
+                                </div>
 
-                            <div>
-                                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Phường / Xã *</label>
-                                <input
-                                    type="text"
-                                    name="ward"
-                                    value={formData.ward}
-                                    onChange={handleInputChange}
-                                    required
-                                    className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:border-primary focus:outline-none transition"
-                                />
-                            </div>
+                                <div>
+                                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Số điện thoại *</label>
+                                    <input
+                                        type="tel"
+                                        name="phoneNumber"
+                                        value={formData.phoneNumber}
+                                        onChange={handleInputChange}
+                                        required
+                                        className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:border-primary focus:outline-none transition"
+                                    />
+                                </div>
 
-                            <div>
-                                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Quận / Huyện *</label>
-                                <input
-                                    type="text"
-                                    name="district"
-                                    value={formData.district}
-                                    onChange={handleInputChange}
-                                    required
-                                    className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:border-primary focus:outline-none transition"
-                                />
-                            </div>
+                                <div>
+                                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Số nhà, Tên đường *</label>
+                                    <input
+                                        type="text"
+                                        name="streetAddress"
+                                        value={formData.streetAddress}
+                                        onChange={handleInputChange}
+                                        required
+                                        className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:border-primary focus:outline-none transition"
+                                        placeholder="Ví dụ: 1 Võ Văn Ngân"
+                                    />
+                                </div>
 
-                            <div className="sm:col-span-2">
-                                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Tỉnh / Thành phố *</label>
-                                <input
-                                    type="text"
-                                    name="city"
-                                    value={formData.city}
-                                    onChange={handleInputChange}
-                                    required
-                                    className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:border-primary focus:outline-none transition"
-                                    placeholder="Ví dụ: TP. Hồ Chí Minh"
-                                />
+                                <div>
+                                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Phường / Xã *</label>
+                                    <input
+                                        type="text"
+                                        name="ward"
+                                        value={formData.ward}
+                                        onChange={handleInputChange}
+                                        required
+                                        className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:border-primary focus:outline-none transition"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Quận / Huyện *</label>
+                                    <input
+                                        type="text"
+                                        name="district"
+                                        value={formData.district}
+                                        onChange={handleInputChange}
+                                        required
+                                        className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:border-primary focus:outline-none transition"
+                                    />
+                                </div>
+
+                                <div className="sm:col-span-2">
+                                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Tỉnh / Thành phố *</label>
+                                    <input
+                                        type="text"
+                                        name="city"
+                                        value={formData.city}
+                                        onChange={handleInputChange}
+                                        required
+                                        className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm focus:border-primary focus:outline-none transition"
+                                        placeholder="Ví dụ: TP. Hồ Chí Minh"
+                                    />
+                                </div>
                             </div>
-                        </div>
+                        )}
                     </div>
 
                     {/* Payment methods */}

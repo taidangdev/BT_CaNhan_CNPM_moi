@@ -1,5 +1,6 @@
 const express = require('express');
 const userController = require('../controllers/user.controller');
+const addressController = require('../controllers/address.controller');
 const { verifyToken, requirePermission } = require('../middlewares/auth.middleware');
 const { body } = require('express-validator');
 const { validate } = require('../middlewares/validation.middleware');
@@ -44,5 +45,12 @@ router.get(
     requirePermission('profile:read'),
     userController.getWishlist
 );
+
+// --- Addresses ---
+router.get('/addresses', requirePermission('profile:read'), addressController.listAddresses);
+router.post('/addresses', requirePermission('profile:update'), addressController.createAddress);
+router.put('/addresses/:id', requirePermission('profile:update'), addressController.updateAddress);
+router.delete('/addresses/:id', requirePermission('profile:update'), addressController.deleteAddress);
+router.post('/addresses/:id/default', requirePermission('profile:update'), addressController.setDefaultAddress);
 
 module.exports = router;

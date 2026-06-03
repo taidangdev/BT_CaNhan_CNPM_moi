@@ -1,4 +1,4 @@
-const { sequelize, Order, OrderItem, Payment, Cart, CartItem, Product, ProductVariant, Address } = require('../models');
+const { sequelize, Order, OrderItem, Payment, Cart, CartItem, Product, ProductVariant, Address, ProductImage } = require('../models');
 const { Op } = require('sequelize');
 
 /**
@@ -30,9 +30,9 @@ const createOrder = async (userId, { shippingAddressId, addressData, note, payme
         address = await Address.create({
             userId,
             recipientName: addressData.recipientName,
-            phoneNumber: addressData.phoneNumber,
-            alternatePhoneNumber: addressData.alternatePhoneNumber || null,
-            streetAddress: addressData.streetAddress,
+            phone: addressData.phoneNumber,
+            line1: addressData.streetAddress,
+            line2: addressData.alternatePhoneNumber || null,
             ward: addressData.ward,
             district: addressData.district,
             city: addressData.city,
@@ -178,15 +178,15 @@ const createOrder = async (userId, { shippingAddressId, addressData, note, payme
     const t = await sequelize.transaction();
 
     try {
-        // Create order number
-        const orderNumber = `ORD-${Date.now()}-${Math.floor(1000 + Math.random() * 9000)}`;
+        // Create order number (max 20 chars)
+        const orderNumber = `ORD-${Date.now().toString().slice(-8)}-${Math.floor(1000 + Math.random() * 9000)}`;
 
         // Create Address snapshot to store permanently
         const shippingSnapshot = {
             recipientName: address.recipientName,
-            phoneNumber: address.phoneNumber,
-            alternatePhoneNumber: address.alternatePhoneNumber,
-            streetAddress: address.streetAddress,
+            phoneNumber: address.phone,
+            alternatePhoneNumber: address.line2 || null,
+            streetAddress: address.line1,
             ward: address.ward,
             district: address.district,
             city: address.city,

@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { fetchUserProfile } from '../store/profileSlice';
 import { logout } from '../store/authSlice';
 import ProfileEditModal from '../components/profile/ProfileEditModal';
+import AddressModal from '../components/profile/AddressModal';
 import type { AuthUser } from '../types/auth';
 import type { ProfileUser } from '../types/profile';
 import axiosInstance from '../services/axiosConfig';
@@ -16,6 +17,7 @@ const DEFAULT_AVATAR =
 const SIDEBAR_ITEMS = [
     { id: 'overview', label: 'Overview', icon: 'dashboard', filled: true },
     { id: 'orders', label: 'Order History', icon: 'shopping_bag' },
+    { id: 'addresses', label: 'My Addresses', icon: 'location_on' },
     { id: 'reviews', label: 'My Reviews', icon: 'reviews' },
     { id: 'wishlist', label: 'Wishlist', icon: 'favorite' },
     { id: 'settings', label: 'Account Settings', icon: 'settings' }
@@ -154,6 +156,54 @@ const ProfilePage = () => {
                 .catch(e => console.error(e));
         }
     }, [user, authUser]);
+
+    // Address Management States and Actions
+    const [addresses, setAddresses] = useState<any[]>([]);
+    const [addressModalOpen, setAddressModalOpen] = useState(false);
+    const [selectedAddress, setSelectedAddress] = useState<any | null>(null);
+
+    const loadAddresses = () => {
+        axiosInstance.get('/users/addresses')
+            .then((res: any) => {
+                setAddresses(res.data?.addresses || []);
+            })
+            .catch(e => console.error(e));
+    };
+
+    useEffect(() => {
+        if (user || authUser) {
+            loadAddresses();
+        }
+    }, [user, authUser]);
+
+    const handleSaveAddress = async (formData: any) => {
+        if (selectedAddress) {
+            await axiosInstance.put(`/users/addresses/${selectedAddress.id}`, formData);
+        } else {
+            await axiosInstance.post('/users/addresses', formData);
+        }
+        loadAddresses();
+    };
+
+    const handleDeleteAddress = async (id: number) => {
+        if (window.confirm('Bạn có chắc chắn muốn xóa địa chỉ này?')) {
+            try {
+                await axiosInstance.delete(`/users/addresses/${id}`);
+                loadAddresses();
+            } catch (e) {
+                console.error(e);
+            }
+        }
+    };
+
+    const handleSetDefaultAddress = async (id: number) => {
+        try {
+            await axiosInstance.post(`/users/addresses/${id}/default`);
+            loadAddresses();
+        } catch (e) {
+            console.error(e);
+        }
+    };
 
 
 
@@ -411,6 +461,100 @@ const ProfilePage = () => {
                                     )}
                                 </section>
 
+                                {/* Addresses */}
+                                <section id="section-addresses" className="scroll-mt-24">
+                                    <div className="mb-8 flex items-center justify-between">
+                                        <h2 className="text-2xl font-semibold text-on-surface">Sổ địa chỉ nhận hàng</h2>
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                setSelectedAddress(null);
+                                                setAddressModalOpen(true);
+                                            }}
+                                            className="flex items-center gap-1 text-sm font-bold text-primary hover:underline"
+                                        >
+                                            <span className="material-symbols-outlined text-[18px]">add_circle</span>
+                                            Thêm địa chỉ mới
+                                        </button>
+                                    </div>
+                                    {addresses.length === 0 ? (
+                                        <div className="flex flex-col items-center justify-center rounded-[24px] border-2 border-dashed border-primary/20 bg-primary/5 p-8 text-center">
+                                            <span className="material-symbols-outlined text-[48px] text-primary mb-2">location_on</span>
+                                            <p className="text-sm text-on-surface-variant mb-4 font-medium">Bạn chưa thiết lập địa chỉ nhận hàng nào.</p>
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    setSelectedAddress(null);
+                                                    setAddressModalOpen(true);
+                                                }}
+                                                className="rounded-full bg-primary px-6 py-2.5 text-xs font-bold text-on-primary hover:opacity-90 transition active:scale-95"
+                                            >
+                                                Tạo địa chỉ đầu tiên
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                                            {addresses.map((addr) => (
+                                                <div
+                                                    key={addr.id}
+                                                    className={`soft-shadow rounded-[24px] border bg-surface-container-lowest p-6 transition-all flex flex-col justify-between ${
+                                                        addr.isDefault ? 'border-primary' : 'border-transparent'
+                                                    }`}
+                                                >
+                                                    <div>
+                                                        <div className="flex items-center justify-between mb-3">
+                                                            <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-bold text-primary">
+                                                                {addr.label || 'Home'}
+                                                            </span>
+                                                            {addr.isDefault && (
+                                                                <span className="rounded-full bg-green-100 px-3 py-1 text-[10px] font-bold text-green-700 uppercase">
+                                                                    Mặc định
+                                                                </span>
+                                                            )}
+                                                        </div>
+                                                        <h3 className="text-base font-bold text-gray-900 mb-1">{addr.recipientName}</h3>
+                                                        <p className="text-sm text-gray-600 mb-2 font-semibold">SĐT: {addr.phone}</p>
+                                                        <p className="text-sm text-gray-500 leading-relaxed font-medium">
+                                                            {addr.line1}
+                                                            {addr.line2 && `, ${addr.line2}`}
+                                                            {`, Phường ${addr.ward}`}
+                                                            {`, Quận ${addr.district}`}
+                                                            {`, ${addr.city}`}
+                                                        </p>
+                                                    </div>
+                                                    <div className="mt-6 flex items-center justify-end gap-2 border-t border-gray-100 pt-4">
+                                                        {!addr.isDefault && (
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => handleSetDefaultAddress(addr.id)}
+                                                                className="text-xs font-bold text-primary hover:underline mr-auto"
+                                                            >
+                                                                Đặt làm mặc định
+                                                            </button>
+                                                        )}
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => {
+                                                                setSelectedAddress(addr);
+                                                                setAddressModalOpen(true);
+                                                            }}
+                                                            className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition text-gray-700"
+                                                        >
+                                                            <span className="material-symbols-outlined text-[18px]">edit</span>
+                                                        </button>
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => handleDeleteAddress(addr.id)}
+                                                            className="flex h-8 w-8 items-center justify-center rounded-full bg-red-50 hover:bg-red-100 transition text-red-600"
+                                                        >
+                                                            <span className="material-symbols-outlined text-[18px]">delete</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </section>
 
                                 {/* Reviews */}
                                 <section id="section-reviews">
@@ -521,6 +665,7 @@ const ProfilePage = () => {
 
             <ProfileFooter />
             <ProfileEditModal open={editOpen} onClose={() => setEditOpen(false)} />
+            <AddressModal open={addressModalOpen} onClose={() => setAddressModalOpen(false)} onSave={handleSaveAddress} address={selectedAddress} />
         </div>
     );
 };
