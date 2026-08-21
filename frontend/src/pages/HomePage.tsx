@@ -734,7 +734,6 @@ export default function HomePage() {
     const memberName = user?.fullName || user?.username || user?.email || 'Student';
     const featured = data?.featured?.length ? data.featured : (data?.newest?.slice(0, 3) ?? []);
     const newest = data?.newest ?? [];
-    const bestSellers = data?.bestSellers ?? [];
     const mostViewed = data?.mostViewed ?? [];
     const categories = data?.categories ?? [];
     const banners = data?.banners ?? [];

@@ -195,7 +195,7 @@ export default function ProductDetailPage() {
                     // 1. Check Wishlist
                     if (user && data?.product) {
                         axiosInstance.get('/users/wishlist')
-                            .then((wishRes) => {
+                            .then((wishRes: any) => {
                                 const found = wishRes.data?.products?.some((p: any) => p.id === data.product.id);
                                 if (!cancelled) setInWishlist(!!found);
                             })
@@ -374,7 +374,7 @@ export default function ProductDetailPage() {
         setReviewSuccess(null);
 
         try {
-            const res = await axiosInstance.post(`/catalog/products/${product.id}/reviews`, {
+            const res: any = await axiosInstance.post(`/catalog/products/${product.id}/reviews`, {
                 rating: ratingInput,
                 comment: commentInput
             });
@@ -406,7 +406,7 @@ export default function ProductDetailPage() {
             return;
         }
         try {
-            const res = await axiosInstance.post(`/users/wishlist/${product.id}`);
+            const res: any = await axiosInstance.post(`/users/wishlist/${product.id}`);
             setInWishlist(res.data?.inWishlist);
             setCartMessage(res.data?.message || 'Đã cập nhật danh sách yêu thích');
             window.setTimeout(() => setCartMessage(null), 3000);

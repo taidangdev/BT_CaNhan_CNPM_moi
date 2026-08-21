@@ -6,6 +6,7 @@ export interface AuthUser {
     status?: string;
     fullName?: string | null;
     avatarUrl?: string | null;
+    phone?: string | null;
 }
 
 export interface LoginResponseData {
